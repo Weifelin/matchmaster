@@ -68,9 +68,9 @@ CREATE TABLE PhysicalChar(
 
 CREATE TABLE Photos(
   UserID INTEGER NOT NULL,
-  Photo LONGBLOB,
+  PhotoPath VARCHAR(1024),
   FOREIGN KEY (UserID) REFERENCES User(UserID),
-  PRIMARY KEY (UserID, Photo)
+  PRIMARY KEY (UserID, PhotoPath)
 );
 
 CREATE TABLE Employee(
@@ -89,3 +89,46 @@ CREATE TABLE Employee(
   CHECK (EmployeeType IN ('Mngr', 'Rglr')),
   PRIMARY KEY (EmployeeID)
 );
+
+CREATE TABLE Date(
+  DateId INTEGER NOT NULL ,
+  User1Id INTEGER NOT NULL ,
+  User2Id INTEGER NOT NULL ,
+  Date DATE,
+  GeoLocation CHAR(100),
+  BookingFee DECIMAL,
+  CustomerRepresentative INTEGER NOT NULL ,
+  Comment LONGBLOB,
+  User1Rating INTEGER,
+  User2Rating INTEGER,
+  CHECK (User1Id <> User2Id),
+  FOREIGN KEY (User1Id) REFERENCES User(UserID),
+  FOREIGN KEY (User2Id) REFERENCES User(UserID),
+  FOREIGN KEY (CustomerRepresentative) REFERENCES Employee(EmployeeID),
+  PRIMARY KEY (DateId)
+);
+
+
+CREATE TABLE Likes(
+  LikerId INTEGER NOT NULL,
+  LikeeId INTEGER NOT NULL,
+  Date DATE,
+  -- self like enabled,
+  FOREIGN KEY (LikerId) REFERENCES Profiles(ProfileID),
+  FOREIGN KEY (LikeeId) REFERENCES Profiles(ProfileID),
+  PRIMARY KEY (LikerId, LikeeId)
+);
+
+CREATE TABLE Referral(
+  ReferrerId INTEGER NOT NULL ,
+  RefereeAId INTEGER NOT NULL ,
+  RefereeBId INTEGER NOT NULL,
+  Date DATE,
+  FOREIGN KEY (ReferrerId) REFERENCES Profiles(ProfileID),
+  FOREIGN KEY (RefereeAId) REFERENCES Profiles(ProfileID),
+  FOREIGN KEY (RefereeBId) REFERENCES Profiles(ProfileID),
+  CHECK (RefereeAId <> RefereeBId <> ReferrerId),
+  PRIMARY KEY (RefereeBId, RefereeAId, ReferrerId)
+);
+
+
