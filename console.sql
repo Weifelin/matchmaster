@@ -68,7 +68,7 @@ CREATE TABLE PhysicalChar(
 
 CREATE TABLE Photos(
   UserID INTEGER NOT NULL,
-  PhotoPath VARCHAR(1024),
+  PhotoPath VARCHAR(512),
   FOREIGN KEY (UserID) REFERENCES User(UserID),
   PRIMARY KEY (UserID, PhotoPath)
 );
@@ -130,5 +130,4 @@ CREATE TABLE Referral(
   CHECK (RefereeAId <> RefereeBId <> ReferrerId),
   PRIMARY KEY (RefereeBId, RefereeAId, ReferrerId)
 );
-
 
