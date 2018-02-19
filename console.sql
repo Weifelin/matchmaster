@@ -12,11 +12,16 @@ CREATE TABLE User(
   -- just like person hobby example. User and its profile Id are connected by the profile schema with combination of
   -- userid and profileid as primary key.
   ZipCode   CHAR(11),
+  CHECK (ZipCode LIKE '^[0-9]*$'),
   Email     CHAR(50) NOT NULL ,
+  CHECK (Email LIKE '.*@.*'),
   -- Account number, account creation date same as profile id.
-  CreditCardNum INTEGER,
-  ProfilePlacementPriority CHAR(5) DEFAULT 'dflt',
-  Rating INTEGER,
+  CreditCardNum CHAR(16),
+  CHECK (CreditCardNum LIKE '[0-9]{16}'),
+  CreditCardExp CHAR(7),
+  CHECK (CreditCardExp LIKE '[0-9]{2}/[0-9]{4}'),
+  ProfilePlacementPriority CHAR(4) DEFAULT 'dflt',
+  Rating DECIMAL,
   LastActiveDate DATE,
   CHECK (ProfilePlacementPriority IN ('High', 'Mid', 'dflt')),
   CHECK (0 <= (SELECT COUNT(*) FROM User) ),
@@ -60,17 +65,18 @@ CREATE TABLE Hobbies(
 );
 
 CREATE TABLE PhysicalChar(
-  UserID INTEGER NOT NULL,
+  ProfileID INTEGER NOT NULL,
   PhysicalChar CHAR(20),
-  FOREIGN KEY (UserID) REFERENCES User(UserID),
-  PRIMARY KEY (UserID, PhysicalChar)
+  FOREIGN KEY (ProfileID) REFERENCES Profiles(ProfileID),
+  PRIMARY KEY (ProfileID, PhysicalChar)
 );
 
-CREATE TABLE Photos(
-  UserID INTEGER NOT NULL,
-  PhotoPath VARCHAR(512),
-  FOREIGN KEY (UserID) REFERENCES User(UserID),
-  PRIMARY KEY (UserID, PhotoPath)
+CREATE TABLE Photos
+(
+    ProfileID INTEGER NOT NULL,
+    PhotoPath VARCHAR(512),
+    PRIMARY KEY (ProfileID, PhotoPath),
+    FOREIGN KEY (ProfileID) REFERENCES Profiles (ProfileID)
 );
 
 CREATE TABLE Employee(
@@ -84,6 +90,7 @@ CREATE TABLE Employee(
   City CHAR(20),
   State CHAR(15),
   ZipCode CHAR(11),
+  CHECK (ZipCode LIKE '^[0-9]*$'),
   Telephone INTEGER,
   EmployeeType CHAR(5) DEFAULT 'Rglr',
   CHECK (EmployeeType IN ('Mngr', 'Rglr')),
@@ -92,8 +99,8 @@ CREATE TABLE Employee(
 
 CREATE TABLE Date(
   DateId INTEGER NOT NULL ,
-  User1Id INTEGER NOT NULL ,
-  User2Id INTEGER NOT NULL ,
+  User1Id CHAR(24) NOT NULL ,
+  User2Id CHAR(24) NOT NULL ,
   Date DATE,
   GeoLocation CHAR(100),
   BookingFee DECIMAL,
@@ -101,6 +108,8 @@ CREATE TABLE Date(
   Comment LONGBLOB,
   User1Rating INTEGER,
   User2Rating INTEGER,
+  CHECK(User1Rating IN (1,2,3,4,5)),
+  CHECK(User2Rating IN (1,2,3,4,5)),
   CHECK (User1Id <> User2Id),
   FOREIGN KEY (User1Id) REFERENCES User(UserID),
   FOREIGN KEY (User2Id) REFERENCES User(UserID),
