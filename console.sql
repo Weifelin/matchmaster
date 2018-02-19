@@ -53,10 +53,10 @@ CREATE TABLE Profiles(
 );
 
 CREATE TABLE Hobbies(
-  UserID INTEGER NOT NULL,
+  ProfileId INTEGER NOT NULL,
   Hobby CHAR(20),
-  FOREIGN KEY (UserID) REFERENCES User(UserID),
-  PRIMARY KEY (UserID, Hobby)
+  FOREIGN KEY (ProfileId) REFERENCES Profiles(ProfileID),
+  PRIMARY KEY (ProfileId, Hobby)
 );
 
 CREATE TABLE PhysicalChar(
