@@ -108,7 +108,7 @@ CREATE TABLE Employee(
   StartDate DATE,
   HourlyRate DECIMAL,
   SSN INT,
-  EmpType ENUM('Manager', 'Customer Representative') DEFAULT 'Customer Representative' NOT NULL,
+  EmpType ENUM('Customer Representative', 'Manager') NOT NULL,
   FOREIGN KEY (EmployeeId) REFERENCES Person(PersonID)
     ON UPDATE CASCADE
     ON DELETE CASCADE ,
