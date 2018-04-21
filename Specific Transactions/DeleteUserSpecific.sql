@@ -1,0 +1,3 @@
+DELETE FROM Person
+  WHERE SSN = '666-66-6666';
+  
