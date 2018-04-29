@@ -20,6 +20,7 @@ CREATE TABLE Person
  Zipcode INT,
  Email VARCHAR(100),
  Telephone VARCHAR(15),
+ KEY (Email),
  PRIMARY KEY (SSN)
 );
 CREATE TABLE Employee
