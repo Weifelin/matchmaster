@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "StatsServlet", urlPatterns = {"/stats"})
 public class StatsServlet extends HttpServlet{
@@ -56,21 +59,29 @@ public class StatsServlet extends HttpServlet{
             "GROUP BY D.Location\n" +
             "ORDER BY COUNT(*) DESC\n" +
             "LIMIT 5;";
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        Connection conn = ConnectionUtils.getInstance().getConnection();
-        PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
-        PreparedStatement pstmtRatedProfiles = conn.prepareStatement(highestRatedProfilesSQL);
-        PreparedStatement pstmtRatedGeo = conn.prepareStatement(mostPopularGeoDateLocationsSQL);
+        try{
+            Connection conn = ConnectionUtils.getInstance().getConnection();
+            PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
 
-        ResultSet rs = pstmtActive.executeQuery();
-        List<String> active = new ArrayList<String>();
-        while(rs.next()){
-            active.add(rs.getString("Pers"));
+            PreparedStatement pstmtRatedProfiles = conn.prepareStatement(highestRatedProfilesSQL);
+            PreparedStatement pstmtRatedGeo = conn.prepareStatement(mostPopularGeoDateLocationsSQL);
+
+            ResultSet rs = pstmtActive.executeQuery();
+            List<String> active = new ArrayList<>();
+            while(rs.next()){
+                active.add(rs.getString("Pers"));
+            }
+            request.setAttribute("mostActiveProfiles", active);
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-        request.setAttribute("mostActiveProfiles", active);
+        request.getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
     }
 }
