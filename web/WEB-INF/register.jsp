@@ -93,9 +93,9 @@
             <input type="text" name="zip" placeholder="Zip Code"><br>
             <input type="text" name="credit" placeholder="Credit Card #"><br>
             <select name = "ppp">
-            	<option value = "0">User-user(free)</option>
-            	<option value = "50">Good-User($50/yr)</option>
-            	<option value = "100">Super-User($100/yr)</option>
+            	<option value = "user" selected = "selected">User-user(free)</option>
+            	<option value = "good">Good-User($50/yr)</option>
+            	<option value = "super">Super-User($100/yr)</option>
             </select>
             <button>create</button>
             <p class="message">Already registered? <a href="login">Sign In</a></p>
