@@ -1,4 +1,4 @@
-
+package edu.sbu.matchmaster;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import edu.sbu.matchmaster.UserBean;
 
 import java.sql.*;
 
@@ -33,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//redirect to webinf login
-		getServletContext().getRequestDispatcher("login.html").forward(request,response);
+		getServletContext().getRequestDispatcher("/WEB-INF/login.html").forward(request,response);
 	}
 
 	/**
@@ -51,14 +49,12 @@ public class LoginServlet extends HttpServlet {
 				String email = request.getParameter("user");
 				String pwd = request.getParameter("pwd");
 				int ssn = 0;
-				String targetURL = "";
+				String targetURL = request.getContextPath();
 				UserBean.Type type = null;
 				ConnectionUtils cu = ConnectionUtils.getInstance();
 				Connection con = cu.getConnection();
 				
-				String query = "SELECT SSN" +
-						"FROM Person P"+
-						"WHERE C.Email = ? AND C.Password = ?";
+				String query = "SELECT SSN FROM Person P WHERE C.Email = ? AND C.Password = ?";
 				
 				PreparedStatement stat = con.prepareStatement(query);
 				
@@ -68,21 +64,17 @@ public class LoginServlet extends HttpServlet {
 				ResultSet res = stat.executeQuery();
 				if(res.next()) {	//ssn was found, search in User
 					ssn = res.getInt("SSN");
-					String query2 = "SELECT *" +
-							"FROM User U" +
-							"WHERE U.SSN = ?";
+					String query2 = "SELECT * FROM User U WHERE U.SSN = ?";
 					PreparedStatement ps = con.prepareStatement(query2);
 					ps.setInt(1, ssn);
 					ResultSet res2 = ps.executeQuery();
 					if(res2.next()) {	//Person is a User
 						type = UserBean.Type.CUST;
-						targetURL += "dashboard.jsp";
+						targetURL += "/user/dash";
 					}
 					else {
 						//get the roll of this employee
-						String query3 = "SELECT Role" +
-								"FROM Employee E" +
-								"WHERE E.SSN = ?";
+						String query3 = "SELECT Role FROM Employee E WHERE E.SSN = ?";
 						PreparedStatement ps3 = con.prepareStatement(query3);
 						ps3.setInt(1, ssn);
 						ResultSet res3 = ps3.executeQuery();
@@ -92,17 +84,17 @@ public class LoginServlet extends HttpServlet {
 							
 							if(res3.getString("Role").equals("EMP")){
 								type = UserBean.Type.EMP;
-								targetURL += "empdash.jsp";
+								targetURL += "/emp/dash";
 							}
 							else{
 								type = UserBean.Type.MNG;
-								targetURL += "mngdash.jsp";
+								targetURL += "/manage/dash";
 							}
 						}
 					}
 				}
 				else{	//no credentials were found
-					targetURL += "login.html";
+					targetURL += "/login";
 				}
 				
 				UserBean user = new UserBean(ssn, type);

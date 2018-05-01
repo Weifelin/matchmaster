@@ -8,12 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-<<<<<<< 343f7d38729b16964bc4785ad5a3aa9db9a764f3
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-=======
->>>>>>> additions
 
 @WebServlet(name = "StatsServlet", urlPatterns = {"/stats"})
 public class StatsServlet extends HttpServlet{
@@ -62,16 +59,12 @@ public class StatsServlet extends HttpServlet{
             "GROUP BY D.Location\n" +
             "ORDER BY COUNT(*) DESC\n" +
             "LIMIT 5;";
-<<<<<<< 343f7d38729b16964bc4785ad5a3aa9db9a764f3
 
-=======
->>>>>>> additions
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-<<<<<<< 343f7d38729b16964bc4785ad5a3aa9db9a764f3
         try{
             Connection conn = ConnectionUtils.getInstance().getConnection();
             PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
@@ -90,18 +83,5 @@ public class StatsServlet extends HttpServlet{
             System.out.println(e.getMessage());
         }
         request.getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
-=======
-        Connection conn = ConnectionUtils.getInstance().getConnection();
-        PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
-        PreparedStatement pstmtRatedProfiles = conn.prepareStatement(highestRatedProfilesSQL);
-        PreparedStatement pstmtRatedGeo = conn.prepareStatement(mostPopularGeoDateLocationsSQL);
-
-        ResultSet rs = pstmtActive.executeQuery();
-        List<String> active = new ArrayList<String>();
-        while(rs.next()){
-            active.add(rs.getString("Pers"));
-        }
-        request.setAttribute("mostActiveProfiles", active);
->>>>>>> additions
     }
 }

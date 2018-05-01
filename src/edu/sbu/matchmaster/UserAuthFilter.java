@@ -3,6 +3,7 @@ package edu.sbu.matchmaster;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(filterName = "UserAuthFilter", urlPatterns = {"/user/*"})
@@ -22,10 +23,10 @@ public class UserAuthFilter implements Filter{
                     chain.doFilter(req, resp);
                     break;
                 case EMP:
-                    request.getServletContext().getRequestDispatcher("/emp/dash").forward(req, resp);
+                    ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/emp/dash");
                     break;
                 case MNG:
-                    request.getServletContext().getRequestDispatcher("/manage/dash").forward(req, resp);
+                    ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/manage/dash");
                     break;
             }
         }
