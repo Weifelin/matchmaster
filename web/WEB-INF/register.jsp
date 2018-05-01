@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Matchmaster - Register</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Matchmaster - Register</title>
 </head>
+
 <style>
 
     .register-page {
@@ -66,23 +69,34 @@
     }
 
 </style>
+
 <body>
 <div class="register-page">
     <div class="form">
-        <form class="login-form" action="login" method="post">
-            <input type="text" name="user" placeholder="Username">
-            <input type="password" name="pwd" placeholder="Password"><br>
-            <button>Login</button>
-            <p class="message">Not Registered? <a href="register">Create an Account</a></p>
-        </form>
         <form class="register-form" action="register" method="post">
-            <input type="text" name="firstname" placeholder="First Name"> <input type="text" name="lastname" placeholder="Last Name"><br>
+        	<%String msg = (String)request.getAttribute("err");%>
+        	       	
+        	<% if(!msg.equals("")){ %>
+        		<p style = "color:red"> <%= msg %></p>
+        	<% }%> 
+        	
+        	
+            <input type="text" name="firstname" placeholder="First Name"> 
+            <input type="text" name="lastname" placeholder="Last Name"><br>
             <input type="text" name="email" placeholder="Email"><br>
             <input type="password" name="pwd" placeholder="Password"><br>
-            <input type="text" name="SSN" placeholder="SSN"> <input type="text" name="phone" placeholder="Phone Number"><br>
+            <input type="text" name="SSN" placeholder="SSN"> 
+            <input type="text" name="phone" placeholder="Phone Number"><br>
             <input type="text" name="street" placeholder="Street"><br>
             <input type="text" name="city" placeholder="City"><br>
-            <input type="text" name="state" placeholder="State"> <input type="text" name="zip" placeholder="Zip Code"><br>
+            <input type="text" name="state" placeholder="State"> 
+            <input type="text" name="zip" placeholder="Zip Code"><br>
+            <input type="text" name="credit" placeholder="Credit Card #"><br>
+            <select name = "ppp">
+            	<option value = "0">User-user(free)</option>
+            	<option value = "50">Good-User($50/yr)</option>
+            	<option value = "100">Super-User($100/yr)</option>
+            </select>
             <button>create</button>
             <p class="message">Already registered? <a href="login">Sign In</a></p>
         </form>

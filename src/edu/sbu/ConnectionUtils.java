@@ -1,4 +1,4 @@
-package edu.sbu.matchmaster;
+package edu.sbu;
 
 
 import java.sql.Connection;
