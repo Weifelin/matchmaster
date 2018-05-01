@@ -15,12 +15,12 @@
     <div class="dashboard-container">
         <div class="userinfo-container">
             <h3>${user.getUserName()}</h3>
-            ${user.getEmail()} ${user.getPhone()} <br>
-            ${user.getStreet()} ${user.getCity()} <br>
-            ${user.getState()} ${user.getZip()}
+            ${user.email} ${user.phone} <br>
+            ${user.street} ${user.city} <br>
+            ${user.state} ${user.zip}
         </div>
         <div class="profiles-container">
-            ${}
+            
         </div>
     </div>
 
