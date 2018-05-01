@@ -1,4 +1,4 @@
-package edu.sbu;
+package edu.sbu.matchmaster;
 
 
 import java.sql.Connection;
@@ -12,7 +12,7 @@ public class ConnectionUtils{
     private static final String host = "127.0.0.1";
     private static final String port = "15264";
 
-    private static ConnectionUtils instance;
+    //private static ConnectionUtils instance;
 
     /**
      * Implements singleton functionality.

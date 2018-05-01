@@ -1,4 +1,4 @@
-package edu.sbu;
+package edu.sbu.matchmaster;
 
 public class UserBean{
     public enum Type{
