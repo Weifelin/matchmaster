@@ -111,7 +111,7 @@ SELECT D.Location, COUNT(*)
 FROM Date D
 GROUP BY D.Location
 ORDER BY COUNT(*) DESC
-LIMIT 1;
+LIMIT 5;
 
 -- Personalized date suggestion list
 SELECT P.ProfileID
