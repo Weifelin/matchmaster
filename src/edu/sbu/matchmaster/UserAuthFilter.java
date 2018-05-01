@@ -1,4 +1,4 @@
-package edu.sbu;
+package edu.sbu.matchmaster;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
