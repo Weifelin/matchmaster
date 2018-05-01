@@ -51,8 +51,8 @@ public class LoginServlet extends HttpServlet {
 				int ssn = 0;
 				String targetURL = request.getContextPath();
 				UserBean.Type type = null;
-				ConnectionUtils cu = ConnectionUtils.getInstance();
-				Connection con = cu.getConnection();
+				//ConnectionUtils cu = ConnectionUtils.getInstance();
+				Connection con = ConnectionUtils.getConnection();
 				
 				String query = "SELECT SSN FROM Person P WHERE C.Email = ? AND C.Password = ?";
 				

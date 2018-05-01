@@ -1,4 +1,4 @@
-
+package edu.sbu.matchmaster;
 
 import java.io.IOException;
 
@@ -86,8 +86,8 @@ public class RegistrationServlet extends HttpServlet {
 		
 		//try to put everything in the DB
 		try {
-			ConnectionUtils cu = ConnectionUtils.getInstance();
-			Connection con = cu.getConnection();
+			//ConnectionUtils cu = ConnectionUtils.getInstance();
+			Connection con = ConnectionUtils.getConnection();
 			
 			String sql = "INSERT INTO Person"+
 						"VALUES(?,?,?,?,?,?,?,?,?,?,?)";

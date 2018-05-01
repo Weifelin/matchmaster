@@ -66,7 +66,7 @@ public class StatsServlet extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try{
-            Connection conn = ConnectionUtils.getInstance().getConnection();
+            Connection conn = ConnectionUtils.getConnection();
             PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
 
             PreparedStatement pstmtRatedProfiles = conn.prepareStatement(highestRatedProfilesSQL);
@@ -74,10 +74,13 @@ public class StatsServlet extends HttpServlet{
 
             ResultSet rs = pstmtActive.executeQuery();
             List<String> active = new ArrayList<>();
+            StringBuilder strDbg = new StringBuilder("Starting loop: ");
             while(rs.next()){
+                strDbg.append(rs.getString("Pers")+"; ");
                 active.add(rs.getString("Pers"));
             }
             request.setAttribute("mostActiveProfiles", active);
+            request.setAttribute("strDbg", strDbg.toString());
 
         }catch(Exception e){
             System.out.println(e.getMessage());
