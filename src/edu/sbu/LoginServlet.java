@@ -1,4 +1,4 @@
-package edu.sbu.matchmaster;
+package edu.sbu;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -1,3 +1,4 @@
+package edu.sbu;
 
 
 import java.io.IOException;
@@ -31,7 +32,8 @@ public class RegistrationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		getServletContext().getRequestDispatcher("register.html").forward(request,response);
+		request.setAttribute("err", "");
+		getServletContext().getRequestDispatcher("/WEB-INF/register.html").forward(request,response);
 	}
 
 	/**
