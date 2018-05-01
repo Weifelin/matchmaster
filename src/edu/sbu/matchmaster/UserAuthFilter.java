@@ -15,7 +15,7 @@ public class UserAuthFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) req;
         UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
         if(userBean == null){
-            request.getServletContext().getRequestDispatcher("/login").forward(req, resp);
+            ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/login");
         }else{
             switch(userBean.getType()){
 

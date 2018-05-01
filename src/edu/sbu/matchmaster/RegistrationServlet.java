@@ -1,5 +1,4 @@
-package edu.sbu;
-
+package edu.sbu.matchmaster;
 
 import java.io.IOException;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/register"})
 public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		RequestDispatcher rd;
 		request.setAttribute("err", "");
-		
+
 		//Get information from the form, and attempt to insert the new person into the DB
 		//firstname, lastname, email, pwd, SSN, street, city, state, zip
 //		String firstname = request.getParameter("firstname");
@@ -56,8 +55,8 @@ public class RegistrationServlet extends HttpServlet {
 //		String state = request.getParameter("state");
 		String zip = request.getParameter("zip");
 //		String phone = request.getParameter("phone");
-		
-		
+
+
 		//scrub ssn and zip
 		int zipInt = 0;
 		try {
@@ -68,38 +67,38 @@ public class RegistrationServlet extends HttpServlet {
 			request.setAttribute("err", "invalid ZIP code");
 		}
 		if(zipInt < 1) {
-				
+
 				request.setAttribute("err", "invalid ZIP code");
 		}
 		Map params = request.getParameterMap();
 		Iterator i = params.keySet().iterator();
 		while(i.hasNext()) {
-			String key = (String) i.next();	
-		
+			String key = (String) i.next();
+
 			String value = ((String[]) params.get(key)) [0];
-			
+
 			if(value == null || value.trim().equals("")) {	//value is empty or nonexistent
 				request.setAttribute("err", "please supply " + key +"");;
 				System.out.println("string value invalid");
 			}
 		}
-		
-		
-		
+
+
+
 		//try to put everything in the DB
 		try {
-			ConnectionUtils cu = ConnectionUtils.getInstance();
-			Connection con = cu.getConnection();
-			
+			//ConnectionUtils cu = ConnectionUtils.getInstance();
+			Connection con = ConnectionUtils.getConnection();
+
 			String sql = "INSERT INTO Person"+
 						"VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-		
+
 			PreparedStatement ps = con.prepareStatement(sql);
 			int n = 1;
 			Map param = request.getParameterMap();
 			Iterator it = param.keySet().iterator();
 			while(it.hasNext()) {
-				String key = (String) it.next();	
+				String key = (String) it.next();
 				String value = ((String[]) param.get(key)) [0];
 				ps.setString(n, value);
 				n++;
@@ -109,8 +108,8 @@ public class RegistrationServlet extends HttpServlet {
 		catch(SQLException | ClassNotFoundException e) {
 			request.setAttribute("err", "you must supply a unique email and SSN");
 		}
-		
-		
+
+
 		if(request.getAttribute("err").equals("")) {
 			rd = request.getRequestDispatcher("login.html");
 			rd.forward(request, response);
@@ -119,9 +118,9 @@ public class RegistrationServlet extends HttpServlet {
 			rd = request.getRequestDispatcher("register.html");
 			rd.forward(request, response);
 		}
-			
-		
-		
+
+
+
 	}
 
 }
