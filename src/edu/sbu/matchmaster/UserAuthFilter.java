@@ -13,17 +13,22 @@ public class UserAuthFilter implements Filter{
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException{
         HttpServletRequest request = (HttpServletRequest) req;
         UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
-        switch(userBean.getType()){
+        if(userBean == null){
+            request.getServletContext().getRequestDispatcher("/login").forward(req, resp);
+        }else{
+            switch(userBean.getType()){
 
-            case CUST:
-                req.getRequestDispatcher()
-                break;
-            case EMP:
-                break;
-            case MNG:
-                break;
+                case CUST:
+                    chain.doFilter(req, resp);
+                    break;
+                case EMP:
+                    request.getServletContext().getRequestDispatcher("/emp/dash").forward(req, resp);
+                    break;
+                case MNG:
+                    request.getServletContext().getRequestDispatcher("/manage/dash").forward(req, resp);
+                    break;
+            }
         }
-        chain.doFilter(req, resp);
     }
 
     public void init(FilterConfig config) throws ServletException{
