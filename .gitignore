@@ -1,7 +1,11 @@
 .idea/
+<<<<<<< 2e4ccd4f378adf8bc3b12d592fa30561e0289fe2
 <<<<<<< b0cb5be94c9d25078c56f10046d2fa021ded8e30
 out/production/SQL/
 out/artifacts/match_master_war_exploded/WEB-INF/classes/.gitignore
+=======
+out/production/
+>>>>>>> update gitignore
 =======
 out/production/
 >>>>>>> update gitignore
