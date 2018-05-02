@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.Stack;
 
 public class ConnectionUtils{
-    private static final String username = "tomcat";
-    private static final String password = "matchthis";
-    private static final String host = "127.0.0.1";
-    private static final String port = "15264";
+    private static final String username = "weifeng"; //"tomcat";
+    private static final String password = "305Lin!";//"matchthis";
+    private static final String host = "andrewjaffie.me";//"127.0.0.1";
+    private static final String port = "15264";//"15264";
 
     //private static ConnectionUtils instance;
 

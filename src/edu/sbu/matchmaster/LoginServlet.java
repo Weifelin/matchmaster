@@ -53,15 +53,17 @@ public class LoginServlet extends HttpServlet {
 				UserBean.Type type = null;
 				//ConnectionUtils cu = ConnectionUtils.getInstance();
 				Connection con = ConnectionUtils.getConnection();
-				
-				String query = "SELECT SSN FROM Person P WHERE C.Email = ? AND C.Password = ?";
-				
+
+				String query = "SELECT SSN FROM Person P WHERE P.Email = ? AND P.Password = ?";
+				System.out.println(query);
 				PreparedStatement stat = con.prepareStatement(query);
 				
 				stat.setString(1, email);
 				stat.setString(2, pwd);
 				//should return a single SSN
+				System.out.println(query);
 				ResultSet res = stat.executeQuery();
+				System.out.println("After executeQuery");
 				if(res.next()) {	//ssn was found, search in User
 					ssn = res.getInt("SSN");
 					String query2 = "SELECT * FROM User U WHERE U.SSN = ?";

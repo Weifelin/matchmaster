@@ -1,4 +1,4 @@
-package edu.sbu;
+package edu.sbu.matchmaster;
 
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class RegistrationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setAttribute("err", "");
-		getServletContext().getRequestDispatcher("/WEB-INF/register.html").forward(request,response);
+		getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request,response);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
 		//Get information from the form, and attempt to insert the new person into the DB
 		//firstname, lastname, email, pwd, SSN, street, city, state, zip
 		String firstname = request.getParameter("firstname");
-		String lastnamee = request.getParameter("lastname");
+		String lastname = request.getParameter("lastname");
 		String email = request.getParameter("email");
 		String pwd = request.getParameter("pwd");
 		String ssn = request.getParameter("ssn");
@@ -91,8 +91,8 @@ public class RegistrationServlet extends HttpServlet {
 		
 		//try to put everything in the DB
 		try {
-			ConnectionUtils cu = ConnectionUtils.getInstance();
-			Connection con = cu.getConnection();
+			 ;
+			Connection con = ConnectionUtils.getConnection();
 			
 			String sql = "INSERT INTO Person"+
 						"VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -142,7 +142,7 @@ public class RegistrationServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 		else {
-			rd = request.getRequestDispatcher("register.html");
+			rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
 			rd.forward(request, response);
 		}
 			
