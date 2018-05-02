@@ -21,8 +21,23 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.7" level="application_server_libraries" />
     <orderEntry type="library" name="mysql-connector-java-5.1.45-bin" level="project" />
     <orderEntry type="library" name="javax.servlet.jsp.jstl-1.2.4" level="project" />
+=======
+    <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 9.0.7" level="application_server_libraries" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/web/WEB-INF/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/web/WEB-INF/lib" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" exported="" name="javax.servlet:jstl:1.2" level="project" />
+>>>>>>> dashboard
   </component>
 </module>
