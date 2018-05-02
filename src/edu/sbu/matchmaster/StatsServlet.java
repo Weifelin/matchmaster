@@ -35,10 +35,10 @@ public class StatsServlet extends HttpServlet{
             "  WHERE R.ProfileA=Pr.ProfileID\n" +
             "GROUP BY Pr.OwnerSSN);\n" +
             "\n" +
-            "SELECT A.Pers, SUM(A.count)\n" +
+            "SELECT A.Pers, SUM(A.count) as newcount\n" +
             "FROM Activity A\n" +
             "GROUP BY A.Pers\n" +
-            "ORDER BY SUM(A.count) DESC\n" +
+            "ORDER BY newcount DESC\n" +
             "LIMIT 5;";
     private static final String highestRatedProfilesSQL = "CREATE TEMPORARY TABLE temp3 AS\n" +
             "(SELECT D.Profile1 AS Profile, AVG(USER1Rating) AS rating\n" +
@@ -69,10 +69,8 @@ public class StatsServlet extends HttpServlet{
             Connection conn = ConnectionUtils.getConnection();
             PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
 
-            PreparedStatement pstmtRatedProfiles = conn.prepareStatement(highestRatedProfilesSQL);
-            PreparedStatement pstmtRatedGeo = conn.prepareStatement(mostPopularGeoDateLocationsSQL);
-
-            ResultSet rs = pstmtActive.executeQuery();
+            pstmtActive.execute();
+            ResultSet rs = pstmtActive.getResultSet();
             List<String> active = new ArrayList<>();
             StringBuilder strDbg = new StringBuilder("Starting loop: ");
             while(rs.next()){
@@ -81,9 +79,11 @@ public class StatsServlet extends HttpServlet{
             }
             request.setAttribute("mostActiveProfiles", active);
             request.setAttribute("strDbg", strDbg.toString());
-
+            rs.close();
+            PreparedStatement pstmtRatedProfiles = conn.prepareStatement(highestRatedProfilesSQL);
+            PreparedStatement pstmtRatedGeo = conn.prepareStatement(mostPopularGeoDateLocationsSQL);
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            request.setAttribute("strDbg",e.getMessage());
         }
         request.getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
     }
