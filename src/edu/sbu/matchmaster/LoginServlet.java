@@ -1,6 +1,7 @@
 package edu.sbu.matchmaster;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,20 +43,25 @@ public class LoginServlet extends HttpServlet {
 		//Get fields from login.html
 		
 		
-		try {			
-			
+		try {
+
 				HttpSession session = request.getSession();
 				
 				String email = request.getParameter("user");
 				String pwd = request.getParameter("pwd");
 				int ssn = 0;
-				String targetURL = request.getContextPath();
+				String targetURL = "";
 				UserBean.Type type = null;
 				//ConnectionUtils cu = ConnectionUtils.getInstance();
 				Connection con = ConnectionUtils.getConnection();
 
 				String query = "SELECT SSN FROM Person P WHERE P.Email = ? AND P.Password = ?";
 				System.out.println(query);
+
+			System.out.println(111111);
+
+				
+
 				PreparedStatement stat = con.prepareStatement(query);
 				
 				stat.setString(1, email);
@@ -63,8 +69,11 @@ public class LoginServlet extends HttpServlet {
 				//should return a single SSN
 				System.out.println(query);
 				ResultSet res = stat.executeQuery();
+
 				System.out.println("After executeQuery");
+
 				if(res.next()) {	//ssn was found, search in User
+
 					ssn = res.getInt("SSN");
 					String query2 = "SELECT * FROM User U WHERE U.SSN = ?";
 					PreparedStatement ps = con.prepareStatement(query2);
@@ -102,7 +111,8 @@ public class LoginServlet extends HttpServlet {
 				UserBean user = new UserBean(ssn, type);
 				if(type!= null)
 					session.setAttribute("user",user);
-				response.sendRedirect(targetURL);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF" + targetURL);
+				rd.forward(request,response);
 			}
 		catch(Exception ex) {
 			System.out.println("SQL Error");

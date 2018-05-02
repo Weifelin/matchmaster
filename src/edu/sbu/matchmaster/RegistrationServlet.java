@@ -1,6 +1,8 @@
 package edu.sbu.matchmaster;
 
 
+import edu.sbu.matchmaster.ConnectionUtils;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -87,11 +89,10 @@ public class RegistrationServlet extends HttpServlet {
 			}
 		}
 		
-		ArrayList<String> parameters = new ArrayList<String>();
+//		ArrayList<String> parameters = new ArrayList<String>();
 		
 		//try to put everything in the DB
 		try {
-			 ;
 			Connection con = ConnectionUtils.getConnection();
 			
 			String sql = "INSERT INTO Person"+
@@ -100,7 +101,7 @@ public class RegistrationServlet extends HttpServlet {
 			String sql2 = "INSERT INTO Account"+
 						"VALUES(?,?,?)";
 			String sql3 = "INSERT INTO User"+
-						"VALUES(?,?,?,CURRENT_TIMESTAMP)";
+						"VALUES(?,?,?,?)";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 			PreparedStatement ps2 = con.prepareStatement(sql2);
@@ -124,7 +125,7 @@ public class RegistrationServlet extends HttpServlet {
 			ps3.setString(1, ssn);
 			ps3.setString(2, ppp);
 			ps3.setInt(3, 0);
-			ps3.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+			ps3.setDate(4, new Date(System.currentTimeMillis()));
 			
 			ps.executeUpdate();
 			ps2.executeUpdate();
@@ -138,7 +139,7 @@ public class RegistrationServlet extends HttpServlet {
 		
 		
 		if(request.getAttribute("err").equals("")) {
-			rd = request.getRequestDispatcher("login.html");
+			rd = request.getRequestDispatcher("/WEB-INF/login.html");
 			rd.forward(request, response);
 		}
 		else {
