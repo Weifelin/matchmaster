@@ -20,7 +20,7 @@
 
     </div>
 
-    <form action = "reports" method = post>
+    <form action = "/managereports" method = post>
         <select>
             <option value = "1">Monthly sales report (please enter month + year)</option>
             <option value = "2">User list</option>
