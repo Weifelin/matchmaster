@@ -12,6 +12,7 @@
     <title>Matchmaster - Advanced Search</title>
 </head>
 <body>
+<jsp:include page="views/header.jsp"></jsp:include>
 <div class="search-container">
     <form class="searchCriteria" method="post" action="search">
         <ul>
@@ -72,7 +73,11 @@
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
             </select></li>
+<<<<<<< HEAD
             <button>search</button>
+=======
+            <button>Search</button>
+>>>>>>> 9a8e1a090bb1693589246aeee9c2b4754aba43bf
         </ul>
     </form>
 </div>

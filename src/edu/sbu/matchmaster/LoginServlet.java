@@ -52,17 +52,16 @@ public class LoginServlet extends HttpServlet {
 				String email = request.getParameter("user");
 				String pwd = request.getParameter("pwd");
 				String ssn = "";
-				String targetURL = "";
+				String name;
 				UserBean.Type type = null;
-				//ConnectionUtils cu = ConnectionUtils.getInstance();
 				Connection con = ConnectionUtils.getConnection();
 
-				String query = "SELECT SSN FROM Person P WHERE P.Email = ? AND P.Password = ?";
+				String query = "SELECT * FROM Person P WHERE P.Email = ? AND P.Password = ?";
 				System.out.println(query);
 
 			System.out.println(111111);
 
-				
+
 
 				PreparedStatement stat = con.prepareStatement(query);
 				
@@ -75,18 +74,20 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("After executeQuery");
 
 				if(res.next()) {	//ssn was found, search in User
-
 					ssn = res.getString("SSN");
+					name = res.getString("FirstName")+" "+res.getString("LastName");
 					String query2 = "SELECT * FROM User U WHERE U.SSN = ?";
 					PreparedStatement ps = con.prepareStatement(query2);
 					ps.setString(1, ssn);
 					ResultSet res2 = ps.executeQuery();
 					if(res2.next()) {	//Person is a User
 						type = UserBean.Type.CUST;
-						targetURL += "/user/dash";
+						UserBean user = new UserBean(ssn, name, type);
+						session.setAttribute("user",user);
+						response.sendRedirect(getServletContext().getContextPath()+"/userdash");
 					}
 					else {
-						//get the roll of this employee
+						//get the role of this employee
 						String query3 = "SELECT Role FROM Employee E WHERE E.SSN = ?";
 						PreparedStatement ps3 = con.prepareStatement(query3);
 						ps3.setString(1, ssn);
@@ -97,11 +98,15 @@ public class LoginServlet extends HttpServlet {
 							
 							if(res3.getString("Role").equals("EMP")){
 								type = UserBean.Type.EMP;
-								targetURL += "/emp/dash";
+								UserBean user = new UserBean(ssn, name, type);
+								session.setAttribute("user",user);
+								response.sendRedirect(request.getContextPath()+"/empdash");
 							}
 							else{
 								type = UserBean.Type.MNG;
-								targetURL += "/manage/dash";
+								UserBean user = new UserBean(ssn, name, type);
+								session.setAttribute("user",user);
+								response.sendRedirect(request.getContextPath()+"/managereports");
 							}
 						}
 					}
@@ -111,14 +116,8 @@ public class LoginServlet extends HttpServlet {
 					System.out.println("invalid!!!!!");
 					err = "Invalid Email or Password";
 					request.setAttribute("err", err);
-					targetURL = "/login.jsp";
+					request.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp");
 				}
-				
-				UserBean user = new UserBean(ssn, type);
-				if(type!= null)
-					session.setAttribute("user",user);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF" + targetURL);
-				rd.forward(request,response);
 			}
 		catch(Exception ex) {
 			System.out.println("SQL Error");
