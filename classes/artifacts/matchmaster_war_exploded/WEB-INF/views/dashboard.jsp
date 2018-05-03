@@ -294,7 +294,7 @@
                 </div>
             </c:forEach>
             <form class="addAccount" method="post" action="addAccountServLet" target="_blank">
-                <input type="hidden" name="ssn" value="${user.ssn}">
+                <input type="hidden" name="ssn" value="${user.getSsn()}">
                 <button>Add New Account</button>
             </form>
         </div>
@@ -333,7 +333,7 @@
 
                         <input type="hidden" name="verb" value="addComment">
 
-                            <c:out value="${date.getProfile1.getID()}"/> with <c:out value="${date.getProfile2.getID()}"/>
+                            <c:out value="${date.getProfile1().getID()}"/> with <c:out value="${date.getProfile2().getID()}"/>
                             Time: <c:out value="${date.getDateTime()}"/>
                             Location: <c:out value="${date.getLocation()}"/>
                             Customer Representative: <c:out value="${date.getCustRep()}"/>

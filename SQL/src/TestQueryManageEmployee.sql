@@ -1,1 +1,1 @@
-SELECT E.SSN, E.StartDate, E.HourlyRate, P.FirstName, P.LastName FROM Employee E, Person P WHERE E.SSN = P.SSN AND E.Role = "CustRep";
+select D.* from Date D,Profile P where P.OwnerSSN = 555-55-5555 AND (D.Profile1 = P.ProfileID OR D.Profile2 = P.ProfileID)
