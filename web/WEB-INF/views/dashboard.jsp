@@ -314,7 +314,7 @@
                     <form class="profile" method="post" action="profile">
                         <input type="hidden" name="pid" value="${profile.getID()}">
                         <input type="hidden" name="delete" value="${true}">
-                        <button>Delete ${profile.getID()} (Caution!)</button>
+                        <button>Delete ${profile.getID()}</button>
                     </form>
                 </div>
             </c:forEach>
@@ -332,15 +332,15 @@
                         <input type="hidden" name="thisDate" value="${date}">
 
                         <input type="hidden" name="verb" value="addComment">
-                        <ul>
-                            <li><c:out value="${date.getProfile1.getID()}"/> with <c:out value="${date.getProfile2.getID()}"/></li>
-                            <li>Time: <c:out value="${date.getDateTime()}"/></li>
-                            <li>Location: <c:out value="${date.getLocation()}"/></li>
-                            <li>Customer Representative: <c:out value="${date.getCustRep()}"/></li>
-                            <li>Comments: <c:out value="${date.getComments()}"/> </li>
-                            <li><input type="text" name="comment" placeholder="Comment Here.."></li>
-                            <li><button>Add Comment</button></li>
-                        </ul>
+
+                            <c:out value="${date.getProfile1.getID()}"/> with <c:out value="${date.getProfile2.getID()}"/>
+                            Time: <c:out value="${date.getDateTime()}"/>
+                            Location: <c:out value="${date.getLocation()}"/>
+                            Customer Representative: <c:out value="${date.getCustRep()}"/>
+                            Comments: <c:out value="${date.getComments()}"/>
+                            <input type="text" name="comment" placeholder="Comment Here..">
+                            <button>Add Comment</button></li>
+
 
                     </form>
                     <form class="delete-date" method="post" action="deleteDateServlet">
