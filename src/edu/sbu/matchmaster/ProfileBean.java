@@ -14,6 +14,10 @@ public class ProfileBean {
         return hobbies;
     }
 
+    public void setID(String id){
+        this.id = id;
+    }
+
     public enum Gender{
         Male,Female,Other
     }
@@ -28,14 +32,14 @@ public class ProfileBean {
     private int geoRange;
     private Gender gender;
     private List<String> hobbies;
-    private int height;
-    private int weight;
+    private double height;
+    private double weight;
     private HairColor color;
     private Date creationDate;
     private Date lastModDate;
 
     public ProfileBean(String id, String ssn, int age, int ageRangeStart, int ageRangeEnd, int geoRange,
-                       Gender gender, List<String> hobbies, int height, int weight, HairColor color,
+                       Gender gender, List<String> hobbies, double height, double weight, HairColor color,
                        Date creationDate, Date lastModDate){
 
         this.id = id;
@@ -59,8 +63,8 @@ public class ProfileBean {
     public int getAgeRangeEnd(){ return this.ageRangeEnd;}
     public int getGeoRange(){ return this.geoRange;}
     public Gender getGender(){ return this.gender;}
-    public int getHeight(){ return this.height;}
-    public int getWeight() { return this.weight;}
+    public double getHeight(){ return this.height;}
+    public double getWeight() { return this.weight;}
     public HairColor getHairColor(){ return this.color;}
     public Date getCreationDate(){ return this.creationDate;}
     public Date getLastModDate() { return this.lastModDate;}
