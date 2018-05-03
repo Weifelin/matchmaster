@@ -13,8 +13,15 @@
 <body>
     <jsp:include page="views/header.jsp"></jsp:include>
     <div class="user-container">
-        <div class="user-info">
-
+        <div class="userinfo-container">
+            <form class="user-info-container" method="post" action="editUserInfoServlet">
+                <input type="hidden" name="thisUser" value="${user}">
+                <h3>${user.getUserName()}</h3>
+                ${user.email} ${user.phone} <br>
+                ${user.street} ${user.city} <br>
+                ${user.state} ${user.zip} <br>
+                <button>Edit</button>
+            </form>
         </div>
     </div>
 </body>

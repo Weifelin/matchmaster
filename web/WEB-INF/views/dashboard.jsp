@@ -15,15 +15,35 @@
     <jsp:include page="header.jsp"></jsp:include>
     <div class="dashboard-container">
         <div class="userinfo-container">
-            <form class="user-info-container" method="post" action="editUserInfoServlet">
+            <form class="user-info-container" method="post" action="editUserInfoServlet" target="_blank">
                 <input type="hidden" name="thisUser" value="${user}">
-                <h3>${user.getUserName()}</h3>
+                <h3>${user.username}</h3>
+                ${user.rating} <br>
                 ${user.email} ${user.phone} <br>
                 ${user.street} ${user.city} <br>
                 ${user.state} ${user.zip} <br>
                 <button>Edit</button>
             </form>
         </div>
+        <div class="accounts-container">
+            <c:forEach var="account" items="${accountList}">
+                <div class="account-box">
+                    <form class="account" method="post" action="EditAccountServlet" target="_blank">
+                        <input type="hidden" name="thisAccount" value="${account}">
+                        <ul>
+                            <li><c:out value="${account.acctNum}"/></li>
+                            <li><c:out value="${account.cardNum}"/></li>
+                            <li><button>Edit</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </c:forEach>
+            <form class="addNewAccountButton" method="post" action="addNewAccountServlet" target="_blank">
+                <input type="hidden" name="ssn" value="${user.ssn}">
+                <button>Add New Account</button>
+            </form>
+        </div>
+        <br>
         <div class="profiles-container">
             <c:forEach var="profile" items="${profileList}">
                 <div class="profile-box">
