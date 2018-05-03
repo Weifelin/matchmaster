@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 				String query = "SELECT SSN FROM Person P WHERE P.Email = ? AND P.Password = ?";
 				System.out.println(query);
 
-			System.out.println(111111);
+				System.out.println(111111);
 
 				
 
@@ -105,7 +105,7 @@ public class LoginServlet extends HttpServlet {
 					}
 				}
 				else{	//no credentials were found
-					targetURL += "/login";
+					targetURL += "/login.html";
 				}
 				
 				UserBean user = new UserBean(ssn, type);
