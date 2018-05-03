@@ -29,6 +29,7 @@ public class UserDashServlet extends HttpServlet{
             //First get profiles belonging to current user
             String ssn = ((UserBean)request.getSession().getAttribute("user")).getSsn();
             PreparedStatement pstmt = conn.prepareStatement("select P.* from Profile P where P.OwnerSSN = ?");
+            //PreparedStatement pstmt2 = conn.prepareStatement("select ")
             pstmt.setString(1, ssn);
             ResultSet rs = pstmt.executeQuery();
             List<ProfileBean> profileList = new ArrayList<>();
