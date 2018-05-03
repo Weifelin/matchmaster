@@ -72,6 +72,13 @@ public class LoginServlet extends HttpServlet {
 				if(res.next()) {	//ssn was found, search in User
 					ssn = res.getString("SSN");
 					name = res.getString("FirstName")+" "+res.getString("LastName");
+                    UserBean user = new UserBean(ssn, type, name,
+                            res.getString(5),
+                            res.getString(6),
+                            res.getString(7),
+                            res.getInt(8),
+                            res.getString(9),
+                            res.getString(10));
 					String query2 = "SELECT * FROM User U WHERE U.SSN = ?";
 					PreparedStatement ps = con.prepareStatement(query2);
 					ps.setString(1, ssn);
@@ -79,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 					System.out.println(ssn);
 					if(res2.next()) {	//Person is a User
 						type = UserBean.Type.CUST;
-						UserBean user = new UserBean(ssn, name, type);
+						user.setType(type);
 						session.setAttribute("user",user);
 						response.sendRedirect(getServletContext().getContextPath()+"/userdash");
 					}
@@ -95,13 +102,13 @@ public class LoginServlet extends HttpServlet {
 							
 							if(res3.getString("Role").equals("EMP")){
 								type = UserBean.Type.EMP;
-								UserBean user = new UserBean(ssn, name, type);
+                                user.setType(type);
 								session.setAttribute("user",user);
 								response.sendRedirect(request.getContextPath()+"/empdash");
 							}
 							else{
 								type = UserBean.Type.MNG;
-								UserBean user = new UserBean(ssn, name, type);
+                                user.setType(type);
 								session.setAttribute("user",user);
 								response.sendRedirect(request.getContextPath()+"/managereports");
 							}

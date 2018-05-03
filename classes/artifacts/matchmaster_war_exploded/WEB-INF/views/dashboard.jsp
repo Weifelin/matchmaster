@@ -18,9 +18,9 @@
             <form class="user-info-container" method="post" action="editUserInfo">
                 <input type="hidden" name="thisUser" value="${user}">
                 <h3>${user.getUserName()}</h3>
-                ${user.email} ${user.phone} <br>
-                ${user.street} ${user.city} <br>
-                ${user.state} ${user.zip} <br>
+                ${user.getEmail()} ${user.getPhone()} <br>
+                ${user.getStreet()} ${user.getCity()} <br>
+                ${user.getState()} ${user.getZip()} <br>
                 <button>Edit</button>
             </form>
         </div>
@@ -30,8 +30,8 @@
                     <form class="profile" method="post" action="editProfileServlet" target="_blank">
                         <input type="hidden" name="thisProfile" value="${profile}">
                         <ul>
-                            <li><c:out value="${profile.profileID}" /> <c:out value="${profile.gender}" /> </li>
-                            <li>Height: <c:out value="${profile.height}" />  Weight: <c:out value="profile.weight"/></li>
+                            <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
+                            <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
                             <li><button>Edit</button></li>
                         </ul>
                     </form>

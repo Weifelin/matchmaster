@@ -3,6 +3,10 @@ package edu.sbu.matchmaster;
 //updated userbean.
 public class UserBean{
 
+    public void setType(Type type){
+        this.type = type;
+    }
+
     public enum Type{
         CUST, EMP, MNG;
     }
@@ -12,19 +16,24 @@ public class UserBean{
     private String ssn;
     private Type type;
     private String userName;
-    private String gender;
-    private String password;
-    private String email;
     private String street;
     private String city;
-    private String phone;
     private String state;
     private int zip;
+    private String email;
+    private String phone;
 
-    public UserBean(String ssn, String name, Type type){
-        this.userName = name;
+
+    public UserBean(String ssn, Type type, String userName, String street, String city, String state, int zip, String email, String phone){
         this.ssn = ssn;
         this.type = type;
+        this.userName = userName;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.email = email;
+        this.phone = phone;
     }
 
     public String getSsn(){
@@ -45,10 +54,6 @@ public class UserBean{
 
     public String getEmail() {
         return email;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public String getPhone() {

@@ -1,6 +1,7 @@
 package edu.sbu.matchmaster;
 
 import com.mysql.jdbc.StringUtils;
+import sun.java2d.cmm.Profile;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @WebServlet({"/search"})
 public class SearchServlet extends HttpServlet {
@@ -45,27 +49,54 @@ public class SearchServlet extends HttpServlet {
         try {
             Connection con = ConnectionUtils.getConnection();
 
-            String sql = "SELECT * FROM Profile P WHERE 1 = 1" +
-                    "AND ProfileID LIKE ?" +
-                    "AND Height <= ?" +
-                    "AND Height >= ?" +
-                    "AND Weight <= ?" +
-                    "AND Weight >= ?";
+            String sql = "SELECT P.* FROM Profile P WHERE 1 = 1 " +
+                    "AND P.ProfileID LIKE ? "+
+                    "AND P.Height <= ? " +
+                    "AND P.Height >= ? " +
+                    "AND P.Weight <= ? " +
+                    "AND P.Weight >= ? ";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setString(1, profileID);
+            ps.setString(1, "%" + profileID + "%");
             ps.setInt(2,maxHint);
             ps.setInt(3,minHint);
             ps.setInt(4,maxWint);
             ps.setInt(5,minWint);
-
+            System.out.println(sql);
+            ResultSet rs = ps.executeQuery();
             //from the resulting profiles, prepare a list of ProfileBeans
-            
+            List<ProfileBean> resultProfileList = new ArrayList<>();
+
+            while(rs.next()){
+                ProfileBean p = new ProfileBean(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        ProfileBean.Gender.valueOf(rs.getString(7)),
+                        Arrays.asList(rs.getString(8).split(", ")),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        ProfileBean.HairColor.valueOf(rs.getString(11)),
+                        rs.getDate(12),
+                        rs.getDate(13)
+                );
+
+                resultProfileList.add(p);
+            }
+            rs.close();
+            ps.close();
+
+            request.setAttribute("resultProfileList", resultProfileList);
 
         }
         catch(Exception e){
             System.out.println("SQL Error");
         }
+
+        getServletContext().getRequestDispatcher("/WEB-INF/advancedSearch.jsp").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
