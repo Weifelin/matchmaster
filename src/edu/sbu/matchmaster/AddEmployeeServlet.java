@@ -7,17 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet({"/managereports"})
-public class ManagerDashServlet extends HttpServlet {
+@WebServlet(/*name = "ManagerDashServlet", urlPatterns = */{"/addemp"})
+public class AddEmployeeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("report","");
-        System.out.println("doPost");
-        getServletContext().getRequestDispatcher("/WEB-INF/managerdash.jsp").forward(request,response);
-        
+        //TODO:add the employee to the database
+        //redirect to manage page
+        getServletContext().getRequestDispatcher("/WEB-INF/addemp.jsp").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("doGet");
-        getServletContext().getRequestDispatcher("/WEB-INF/managerdash.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/WEB-INF/addemp.jsp").forward(request,response);
     }
 }
