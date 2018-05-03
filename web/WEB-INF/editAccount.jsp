@@ -11,6 +11,11 @@
     <title>Matchmaster - Edit User Account</title>
 </head>
 <body>
+    <jsp:include page="views/header.jsp"></jsp:include>
+    <div class="user-container">
+        <div class="user-info">
 
+        </div>
+    </div>
 </body>
 </html>
