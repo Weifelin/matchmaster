@@ -51,16 +51,17 @@ public class LoginServlet extends HttpServlet {
 				
 				String email = request.getParameter("user");
 				String pwd = request.getParameter("pwd");
-				int ssn = 0;
+				String ssn = "";
+				String name;
 				UserBean.Type type = null;
 				Connection con = ConnectionUtils.getConnection();
 
-				String query = "SELECT SSN FROM Person P WHERE P.Email = ? AND P.Password = ?";
+				String query = "SELECT * FROM Person P WHERE P.Email = ? AND P.Password = ?";
 				System.out.println(query);
 
 			System.out.println(111111);
 
-				
+
 
 				PreparedStatement stat = con.prepareStatement(query);
 				
@@ -73,23 +74,23 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("After executeQuery");
 
 				if(res.next()) {	//ssn was found, search in User
-
-					ssn = res.getInt("SSN");
+					ssn = res.getString("SSN");
+					name = res.getString("FirstName")+" "+res.getString("LastName");
 					String query2 = "SELECT * FROM User U WHERE U.SSN = ?";
 					PreparedStatement ps = con.prepareStatement(query2);
-					ps.setInt(1, ssn);
+					ps.setString(1, ssn);
 					ResultSet res2 = ps.executeQuery();
 					if(res2.next()) {	//Person is a User
 						type = UserBean.Type.CUST;
-						UserBean user = new UserBean(ssn, type);
+						UserBean user = new UserBean(ssn, name, type);
 						session.setAttribute("user",user);
-						response.sendRedirect("/user/dash");
+						response.sendRedirect(getServletContext().getContextPath()+"/userdash");
 					}
 					else {
 						//get the role of this employee
 						String query3 = "SELECT Role FROM Employee E WHERE E.SSN = ?";
 						PreparedStatement ps3 = con.prepareStatement(query3);
-						ps3.setInt(1, ssn);
+						ps3.setString(1, ssn);
 						ResultSet res3 = ps3.executeQuery();
 						
 						if(res3.next()){
@@ -97,15 +98,15 @@ public class LoginServlet extends HttpServlet {
 							
 							if(res3.getString("Role").equals("EMP")){
 								type = UserBean.Type.EMP;
-								UserBean user = new UserBean(ssn, type);
+								UserBean user = new UserBean(ssn, name, type);
 								session.setAttribute("user",user);
-								response.sendRedirect(request.getContextPath()+"/emp/dash");
+								response.sendRedirect(request.getContextPath()+"/empdash");
 							}
 							else{
 								type = UserBean.Type.MNG;
-								UserBean user = new UserBean(ssn, type);
+								UserBean user = new UserBean(ssn, name, type);
 								session.setAttribute("user",user);
-								response.sendRedirect(request.getContextPath()+"/manage/dash");
+								response.sendRedirect(request.getContextPath()+"/managereports");
 							}
 						}
 					}

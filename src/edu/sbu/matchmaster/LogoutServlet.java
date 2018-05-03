@@ -15,6 +15,6 @@ public class LogoutServlet extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         request.getSession().removeAttribute("userBean");
-        getServletContext().getRequestDispatcher("/login").forward(request,response);
+        response.sendRedirect("http://andrewjaffie.me/matchmaster/login");
     }
 }

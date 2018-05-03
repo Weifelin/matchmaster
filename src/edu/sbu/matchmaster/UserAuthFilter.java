@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "UserAuthFilter", urlPatterns = {"/user/*"})
+@WebFilter(filterName = "UserAuthFilter", urlPatterns = {"/user*"})
 public class UserAuthFilter implements Filter{
     public void destroy(){
     }
@@ -15,7 +15,7 @@ public class UserAuthFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) req;
         UserBean userBean = (UserBean) request.getSession().getAttribute("user");
         if(userBean == null){
-            ((HttpServletResponse)resp).sendRedirect("http://andrewjaffie.me/matchmaster/login");
+            ((HttpServletResponse)resp).sendRedirect("/login");
         }else{
             switch(userBean.getType()){
 
@@ -23,10 +23,10 @@ public class UserAuthFilter implements Filter{
                     chain.doFilter(req, resp);
                     break;
                 case EMP:
-                    ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/emp/dash");
+                    ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/empdash");
                     break;
                 case MNG:
-                    ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/manage/dash");
+                    ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/managereports");
                     break;
             }
         }

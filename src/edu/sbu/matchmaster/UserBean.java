@@ -21,7 +21,8 @@ public class UserBean{
     private String state;
     private int zip;
 
-    public UserBean(String ssn, Type type){
+    public UserBean(String ssn, String name, Type type){
+        this.userName = name;
         this.ssn = ssn;
         this.type = type;
     }

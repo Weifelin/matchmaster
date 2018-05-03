@@ -14,7 +14,7 @@
 <body>
 <jsp:include page="views/header.jsp"></jsp:include>
 <div class="search-container">
-    <form class="searchCriteria" method="post" action="searchServlet">
+    <form class="searchCriteria" method="post" action="search">
         <ul>
             <li> <input type="text" name="profileID" placeholder="ProfileID.."></li>
             <li> Height: <input type="text" name="minHeight" placeholder="Min Height"> - <input type="text" name="maxHeight" placeholder="Max Height"></li>
@@ -73,6 +73,7 @@
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
             </select></li>
+            <button>Search</button>
         </ul>
     </form>
 </div>

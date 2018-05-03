@@ -19,6 +19,8 @@ public class SearchServlet extends HttpServlet {
         String maxHeight = request.getParameter("maxHeight");
         String minWeight = request.getParameter("minWeight");
         String maxWeight = request.getParameter("maxWeight");
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
