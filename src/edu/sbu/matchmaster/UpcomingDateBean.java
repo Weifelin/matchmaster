@@ -11,6 +11,7 @@ public class UpcomingDateBean {
         this.pid2 = p2;
         this.location = l;
         this.date = d;
+
     }
 
     public String getProfile1(){return pid1;}

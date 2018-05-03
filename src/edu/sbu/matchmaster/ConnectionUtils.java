@@ -37,7 +37,6 @@ public class ConnectionUtils{
         Class.forName("com.mysql.jdbc.Driver");
         String connURL = "jdbc:mysql://" + host + ":" + port + "/matchmaster?allowMultiQueries=true";
         Connection conn = DriverManager.getConnection(connURL, username, password);
-        conn.setAutoCommit(false);
         return conn;
     }
 
