@@ -86,7 +86,7 @@
                 <input type="hidden" name="thisProfile" value="${profile}">
                 <ul>
                     <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
-                    <li>Hair Color: <c:out value="${profile.getColor()}"/></li>
+                    <li>Hair Color: <c:out value="${profile.getHairColor()}"/></li>
                     <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
                     <li>Hobbies: <c:out value="${profile.getHobbies()}"/></li>
                     <li><button>Date</button></li>

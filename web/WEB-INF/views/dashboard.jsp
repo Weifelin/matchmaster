@@ -333,7 +333,7 @@
 
                         <input type="hidden" name="verb" value="addComment">
 
-                            <c:out value="${date.getProfile1.getID()}"/> with <c:out value="${date.getProfile2.getID()}"/>
+                            <c:out value="${date.getProfile1().getID()}"/> with <c:out value="${date.getProfile2().getID()}"/>
                             Time: <c:out value="${date.getDateTime()}"/>
                             Location: <c:out value="${date.getLocation()}"/>
                             Customer Representative: <c:out value="${date.getCustRep()}"/>

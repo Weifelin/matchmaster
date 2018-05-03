@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,7 +30,6 @@ public class UserDashServlet extends HttpServlet{
             //First get profiles belonging to current user
             String ssn = ((UserBean)request.getSession().getAttribute("user")).getSsn();
             PreparedStatement pstmt = conn.prepareStatement("select P.* from Profile P where P.OwnerSSN = ?");
-            //PreparedStatement pstmt2 = conn.prepareStatement("select ")
             pstmt.setString(1, ssn);
             ResultSet rs = pstmt.executeQuery();
             List<ProfileBean> profileList = new ArrayList<>();
@@ -56,7 +56,29 @@ public class UserDashServlet extends HttpServlet{
             request.setAttribute("profileList", profileList);
 
 
+            //Get the list of upcoming dates for this user
+            PreparedStatement pstmt2 = conn.prepareStatement("select D.* from Date D,Profile P where P.OwnerSSN LIKE ? " +
+                                                        " AND (D.Profile1 = P.ProfileID OR D.Profile2 = P.ProfileID)");//+
+                                                        //"AND D.Date_Time < CURRENT_TIMESTAMP()");
+            pstmt2.setString(1,ssn);
+            ResultSet rs2 = pstmt2.executeQuery();
+            System.out.println("Query2 Success");
+            List<DateBean> upcomingDateList = new ArrayList<>();
+            while(rs2.next()){
 
+//                System.out.println("sending");
+//                DateBean ud = DateBean.loadDate(
+//                        rs2.getString(1),
+//                        rs2.getString(2),
+//                        rs2.getTimestamp(4)
+//                );
+
+                //System.out.println(ud.getLocation());
+                //upcomingDateList.add(ud);
+            }
+            rs2.close();
+            pstmt2.close();
+            request.setAttribute("upcomingDateList", upcomingDateList);
 
 
 

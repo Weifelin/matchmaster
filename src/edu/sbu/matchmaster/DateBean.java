@@ -1,50 +1,63 @@
 package edu.sbu.matchmaster;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class DateBean{
     private ProfileBean Profile1, Profile2;
     private EmployeeBean CustRep;
-    private Date dateTime;
+    private Timestamp dateTime;
     private String location;
     private double bookingFee;
     private String comments;
     private int user1Rating, user2Rating;
 
-    public DateBean loadDate(String pid1, String pid2, Date dateTime) throws SQLException, ClassNotFoundException{
+    public static DateBean  loadDate(String pid1, String pid2, Timestamp dateTime) throws SQLException, ClassNotFoundException{
         Connection conn = ConnectionUtils.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(
-                "select * from Date where (Profile1, Profile2, Date_Time)=(?,?,?)"
+                "select * from Date where (Profile1 LIKE ? AND Profile2 LIKE ? AND Date_Time=?)"
         );
+
         pstmt.setString(1, pid1);
         pstmt.setString(2, pid2);
-        pstmt.setDate(3, dateTime);
+        System.out.println( dateTime.toString().split("\\.")[0]);
+        pstmt.setTimestamp(3, dateTime);
+
         ResultSet rs = pstmt.executeQuery();
+        System.out.println(dateTime);
+
         if(rs.next()){
             try{
+                System.out.println("HERE?!?!?");
                 DateBean retreivedDate = new DateBean(
                         ProfileBean.loadProfile(rs.getString(1)),
                         ProfileBean.loadProfile(rs.getString(2)),
                         EmployeeBean.loadEmployee(rs.getString(3)),
-                        rs.getDate(4),
+                        rs.getTimestamp(4),
                         rs.getString(5),
                         rs.getDouble(6),
                         rs.getString(7),
                         rs.getInt(8),
                         rs.getInt(9)
                 );
+                System.out.println("HERE?!?!?");
                 conn.close();
+                System.out.println("HERE222222");
                 pstmt.close();
+                System.out.println("HERE333333");
                 rs.close();
+
+                System.out.println("Date Retrieved!!!");
                 return retreivedDate;
             } catch(Exception e){
-
+                System.out.println("Retrieval Error ?????");
             } finally {
                 conn.close();
                 pstmt.close();
                 rs.close();
             }
         }
+        System.out.println("no date found");
         conn.close();
         pstmt.close();
         rs.close();
@@ -52,7 +65,7 @@ public class DateBean{
     }
 
 
-    public DateBean(ProfileBean profile1, ProfileBean profile2, EmployeeBean custRep, Date dateTime, String location, double bookingFee, String comments, int user1Rating, int user2Rating){
+    public DateBean(ProfileBean profile1, ProfileBean profile2, EmployeeBean custRep, Timestamp dateTime, String location, double bookingFee, String comments, int user1Rating, int user2Rating){
         Profile1 = profile1;
         Profile2 = profile2;
         CustRep = custRep;
@@ -70,7 +83,7 @@ public class DateBean{
         pstmt.setString(1, comments);
         pstmt.setString(2, getProfile1().getID());
         pstmt.setString(3, getProfile2().getID());
-        pstmt.setDate(4, getDateTime());
+        pstmt.setTimestamp(4, getDateTime());
     }
     public ProfileBean getProfile1(){
         return Profile1;
@@ -84,7 +97,7 @@ public class DateBean{
         return CustRep;
     }
 
-    public Date getDateTime(){
+    public Timestamp getDateTime(){
         return dateTime;
     }
 
