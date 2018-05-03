@@ -24,6 +24,7 @@
 </head>
 <body>
     <h1 align="center">General Statistics</h1>
+    <c:out value="${strDbg}"/>
     <div class="column">
         <h2 align="center">Most Active Profiles</h2>
             <ol>
@@ -32,7 +33,22 @@
             </c:forEach>
             </ol>
     </div>
-    <div class="column"></div>
-    <div class="column"></div>
+    <div class="column">
+        <h2 align="center">Highest Rated Profiles</h2>
+        <ol>
+            <c:forEach items="${highestRatedProfiles}" var="profile">
+                <li><c:out value="${profile}"/></li>
+            </c:forEach>
+        </ol>
+    </div>
+    <div class="column">
+        <h2 align="center">Most Popular Geo-Locations</h2>
+        <ol>
+            <c:forEach items="${mostPopularGeo}" var="loc">
+                <li><c:out value="${loc}"/></li>
+            </c:forEach>
+        </ol>
+    </div>
+
 </body>
 </html>
