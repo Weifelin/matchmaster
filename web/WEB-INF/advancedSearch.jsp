@@ -73,11 +73,8 @@
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
             </select></li>
-<<<<<<< HEAD
-            <button>search</button>
-=======
             <button>Search</button>
->>>>>>> 9a8e1a090bb1693589246aeee9c2b4754aba43bf
+
         </ul>
     </form>
 </div>

@@ -55,14 +55,10 @@ public class LoginServlet extends HttpServlet {
 				String name;
 				UserBean.Type type = null;
 				Connection con = ConnectionUtils.getConnection();
-
 				String query = "SELECT * FROM Person P WHERE P.Email = ? AND P.Password = ?";
 				System.out.println(query);
 
-			System.out.println(111111);
-
-
-
+				System.out.println(111111);
 				PreparedStatement stat = con.prepareStatement(query);
 				
 				stat.setString(1, email);
@@ -80,6 +76,7 @@ public class LoginServlet extends HttpServlet {
 					PreparedStatement ps = con.prepareStatement(query2);
 					ps.setString(1, ssn);
 					ResultSet res2 = ps.executeQuery();
+					System.out.println(ssn);
 					if(res2.next()) {	//Person is a User
 						type = UserBean.Type.CUST;
 						UserBean user = new UserBean(ssn, name, type);
