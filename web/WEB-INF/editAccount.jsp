@@ -13,14 +13,18 @@
 <body>
     <jsp:include page="views/header.jsp"></jsp:include>
     <div class="edit-account-container">
-        <form class="update-account-form" method="post" action="updateAccountServlet">
+        <form class="update-account-form" method="post" action="editAccount">
             ${account.getAcctNum()}<br>
-            <input type="hidden" name="thisAccount" value="${account}">
+            <input type="hidden" name="acctNum" value="${thisAccount.getAcctNum()}">
+                <input type="hidden" name="ssn" value="${thisAccount.getSsn()}">
             <input type="text" name="cardNum" Placeholder="Enter new card number..">
             <button>Submit</button>
         </form>
-        <form class="delete-account-form" method="post" action="deleteAccountServlet">
-            <input type="hidden" name="thisAccount" value="${account}">
+        <form class="delete-account-form" method="post" action="editAccount">
+            <input type="hidden" name="acctNum" value="${thisAccount.getAcctNum()}">
+            <input type="hidden" name="ssn" value="${thisAccount.getSsn()}">
+            <input type="hidden" name="cardNum" value="${thisAccount.getCardNum()}">
+            <input type="hidden" name="verb" value="delete">
             <button>Delete</button>
         </form>
     </div>

@@ -2,16 +2,16 @@ package edu.sbu.matchmaster;
 
 public class AccountBean {
     private String ssn;
-    private int cardNum;
+    private long cardNum;
     private String acctNum;
 
-    public AccountBean(String ssn, int cardNum, String acctNum){
+    public AccountBean(String ssn, long cardNum, String acctNum){
         this.ssn = ssn;
         this.acctNum = acctNum;
         this.cardNum = cardNum;
     }
 
-    public int getCardNum() {
+    public long getCardNum() {
         return cardNum;
     }
 

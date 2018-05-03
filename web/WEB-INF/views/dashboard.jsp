@@ -293,7 +293,7 @@
                     </form>
                 </div>
             </c:forEach>
-            <form class="addAccount" method="post" action="addAccountServLet" target="_blank">
+            <form class="addAccount" method="get" action="editAccount" target="_blank">
                 <input type="hidden" name="ssn" value="${user.getSsn()}">
                 <button>Add New Account</button>
             </form>
