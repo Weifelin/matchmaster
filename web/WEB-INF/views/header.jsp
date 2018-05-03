@@ -12,10 +12,11 @@
     <div class="SiteName" style="float: left">
         Hello ${user.getUserName()}
         <a href="logoutProcess.jsp">Log Out</a>
+        <a href="dashboard.jsp">Dashboard</a>
     </div>
     <div class="search-container" style="float: right; padding: 10px; text-align: right;">
-       <form action="/WEB-INF/advancedSearch.jsp">
-           <input type="text" placeholder="Search.." name="search">
+       <form action="searchServlet">
+           <input type="text" placeholder="Enter ProfileID to Search..." name="profileID">
            <button type="submit"><i class="fa fa-search"></i></button>
        </form>
     </div>
