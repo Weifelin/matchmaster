@@ -49,7 +49,7 @@
                 <div class="profile-box">
                     <form class="profile" method="get" action="profile" target="_blank">
                         <%--<input type="hidden" name="thisProfile" value="${profile}">--%>
-                        <input type="hidden" name="pid" value="${profile.getID()}"
+                        <input type="hidden" name="pid" value="${profile.getID()}">
                         <ul>
                             <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
                             <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
