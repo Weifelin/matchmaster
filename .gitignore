@@ -4,3 +4,4 @@ out/artifacts/match_master_war_exploded/
 *.iml
 *.bak
 .gitignore
+out/
