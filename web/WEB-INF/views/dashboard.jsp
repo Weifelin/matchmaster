@@ -36,7 +36,7 @@
 
     .user-info-container button {
         ont-family: "Roboto", sans-serif;
-        text-transform: uppercase;
+         
         outline: 0;
         background: #4CAF50;
         border: 0;
@@ -76,7 +76,7 @@
 
     .accounts-container button {
         font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
+         
         outline: 0;
         background: #4CAF50;
         width: 100%;
@@ -119,7 +119,7 @@
 
     .profiles-container button {
         font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
+         
         outline: 0;
         background: #4CAF50;
         width: 100%;
@@ -176,7 +176,7 @@
 
     .dates-container button {
         font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
+         
         outline: 0;
         background: #4CAF50;
         width: 100%;
@@ -210,7 +210,7 @@
 
     .suggested-container button {
         font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
+         
         outline: 0;
         background: #4CAF50;
         width: 100%;
@@ -244,7 +244,7 @@
 
     .form button {
         font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
+         
         outline: 0;
         background: #4CAF50;
         width: 100%;

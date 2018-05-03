@@ -12,6 +12,54 @@
 <head>
     <title>Matchmaster - Profile: ${pid}</title>
 </head>
+<style>
+    .profile-container {
+        width: 360px;
+        padding: 8% 0 0;
+        margin: auto;
+
+        font-family: "Roboto", sans-serif;
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 360px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .profile-container input {
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .profile-container button{
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .profile-container button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+    }
+
+    fieldset{
+        border: 0px;
+    }
+
+</style>
 <body>
     <div class="profile-container" align="center">
         <h3>Profile: ${pid}</h3>
