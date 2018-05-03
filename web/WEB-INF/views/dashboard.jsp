@@ -15,15 +15,19 @@
     <jsp:include page="header.jsp"></jsp:include>
     <div class="dashboard-container">
         <div class="userinfo-container">
-            <h3>${user.getUserName()}</h3>
-            ${user.email} ${user.phone} <br>
-            ${user.street} ${user.city} <br>
-            ${user.state} ${user.zip}
+            <form class="user-info-container" method="post" action="editUserInfoServlet">
+                <input type="hidden" name="thisUser" value="${user}">
+                <h3>${user.getUserName()}</h3>
+                ${user.email} ${user.phone} <br>
+                ${user.street} ${user.city} <br>
+                ${user.state} ${user.zip} <br>
+                <button>Edit</button>
+            </form>
         </div>
         <div class="profiles-container">
             <c:forEach var="profile" items="${profileList}">
                 <div class="profile-box">
-                    <form class="profile" method="post" action="editProfileServlet">
+                    <form class="profile" method="post" action="editProfileServlet" target="_blank">
                         <input type="hidden" name="thisProfile" value="${profile}">
                         <ul>
                             <li><c:out value="${profile.profileID}" /> <c:out value="${profile.gender}" /> </li>
@@ -33,7 +37,7 @@
                     </form>
                 </div>
             </c:forEach>
-            <form class="addProfileButton" method="post" action="addProfileServlet">
+            <form class="addProfileButton" method="post" action="addProfileServlet" target="_blank">
                 <input type="hidden" name="ssn" value="${user.ssn}">
                 <button>Add New Profile</button>
             </form>
@@ -42,7 +46,7 @@
         <div class="dates-container">
             <c:forEach var="date" items="${upcomingDateList}">
                 <div class="date-box">
-                    <form class="upcoming-date" method="post" action="editDateServlet">
+                    <form class="upcoming-date" method="post" action="editDateServlet" target="_blank">
                         <input type="hidden" name="thisDate" value="${date}">
                         <ul>
                             <li><c:out value="${date.profile1.profileID}"/> with <c:out value="${date.profile2.profileID}"/></li>
