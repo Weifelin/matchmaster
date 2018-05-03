@@ -12,6 +12,7 @@
     <div class="SiteName" style="float: left">
         Hello ${user.getUserName()}
         <a href="logoutProcess.jsp">Log Out</a>
+        <a href="dashboard.jsp">Dashboard</a>
     </div>
     <div class="search-container" style="float: right; padding: 10px; text-align: right;">
        <form action="searchServlet">
