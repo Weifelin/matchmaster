@@ -16,11 +16,16 @@
 </head>
 <body>
     <div>
+        <form action = "manageemployees" method = post>
+            <button>Manage Employees</button>
+        </form>
+    </div>
+    <div>
         <p>Select a report to print:</p>
 
     </div>
 
-    <form action = "/managereports" method = post>
+    <form action = "managereports" method = post>
         <select>
             <option value = "1">Monthly sales report (please enter month + year)</option>
             <option value = "2">User list</option>

@@ -24,6 +24,26 @@
                 <button>Edit</button>
             </form>
         </div>
+        <br>
+        <div class="accounts-container">
+            <c:forEach var="account" items="${accountList}">
+                <div class="account-box">
+                    <form class="account" method="post" action="updateAccountServlet" target="_blank">
+                        <input type="hidden" name="thisAccount" value="${account}">
+                        <ul>
+                            <li><c:out value="${account.getAcctNum()}"/></li>
+                            <li><c:out value="${account.getCardNum()}"/></li>
+                            <li><button>Update</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </c:forEach>
+            <form class="addAccount" method="post" action="addAccountServLet" target="_blank">
+                <input type="hidden" name="ssn" value="${user.ssn}">
+                <button>Add New Account</button>
+            </form>
+        </div>
+        <br>
         <div class="profiles-container">
             <c:forEach var="profile" items="${profileList}">
                 <div class="profile-box">

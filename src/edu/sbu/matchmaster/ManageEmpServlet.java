@@ -28,7 +28,7 @@ public class ManageEmpServlet extends HttpServlet {
         try{
             Connection con = ConnectionUtils.getConnection();
 
-            String sql = "SELECT E.SSN, E.StartDate FROM Employee E, Person P WHERE E.SSN = P.SSN AND E.Role LIKE CustRep";
+            String sql = "SELECT E.SSN, E.StartDate, E.HourlyRate, P.FirstName, P.LastName FROM Employee E, Person P WHERE E.SSN = P.SSN AND E.Role LIKE CustRep";
 
             Statement stat = con.createStatement();
             ResultSet rs = stat.executeQuery(sql);
@@ -36,11 +36,17 @@ public class ManageEmpServlet extends HttpServlet {
             while(rs.next()){
                 EmployeeBean eb = new EmployeeBean(
                         rs.getString(1),
-                        rs.getDate(3),
-                        rs.getInt(4)
+                        rs.getDate(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)
                 );
-
+                employees.add(eb);
             }
+            rs.close();
+            stat.close();
+
+            request.setAttribute("emplist", employees);
         }
         catch(Exception e){
 
