@@ -16,21 +16,21 @@ import java.util.List;
 
 @WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
 public class ProfileServlet extends HttpServlet{
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        ProfileBean newProfile = new ProfileBean((String)request.getAttribute("pid"),
-                ((UserBean)request.getSession().getAttribute("user")).getSsn(),
-                Integer.parseInt((String)request.getParameter("age")),
-                Integer.parseInt((String)request.getParameter("ageRangeStart")),
-                Integer.parseInt((String)request.getParameter("ageRangeEnd")),
-                Integer.parseInt((String)request.getParameter("geoRange")),
-                ProfileBean.Gender.valueOf((String)request.getParameter("gender")),
-                Arrays.asList(((String)request.getParameter("hobbies")).split(", ")),
-                Double.parseDouble((String)request.getParameter("height")),
-                Double.parseDouble((String)request.getParameter("weight")),
-                ProfileBean.HairColor.valueOf((String)request.getParameter("hairColor")),
+    protected void doPost(HttpServletRequest request, HttpServletResponse response){
+        ProfileBean newProfile = new ProfileBean(request.getParameter("newpid"),
+                ((UserBean) request.getSession().getAttribute("user")).getSsn(),
+                Integer.parseInt(request.getParameter("age")),
+                Integer.parseInt(request.getParameter("ageRangeStart")),
+                Integer.parseInt(request.getParameter("ageRangeEnd")),
+                Integer.parseInt(request.getParameter("geoRange")),
+                ProfileBean.Gender.valueOf(request.getParameter("gender")),
+                Arrays.asList(request.getParameter("hobbies").split(", ")),
+                Double.parseDouble(request.getParameter("height")),
+                Double.parseDouble(request.getParameter("weight")),
+                ProfileBean.HairColor.valueOf(request.getParameter("hairColor")),
                 Date.valueOf((request.getParameter("creationDate"))),
                 new Date(System.currentTimeMillis())
-                );
+        );
         try{
             Connection conn = ConnectionUtils.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(
@@ -42,7 +42,7 @@ public class ProfileServlet extends HttpServlet{
                 if(rs.getString(1).equals(newProfile.getSSN())){
                     pstmt = conn.prepareStatement(
                             "update Profile set Age=?, DatingAgeRangeStart=?, DatingAgeRangeEnd=?, DatingGeoRange=?, M_F=?, Hobbies=?, Height=?, Weight=?, HairColor=?, LastModDate=? where ProfileID=?");
-                   // pstmt.setString(1, newProfile.getID());
+                    // pstmt.setString(1, newProfile.getID());
                     pstmt.setInt(1, newProfile.getAge());
                     pstmt.setInt(2, newProfile.getAgeRangeStart());
                     pstmt.setInt(3, newProfile.getAgeRangeEnd());
@@ -81,11 +81,15 @@ public class ProfileServlet extends HttpServlet{
                 pstmt.setDate(13, newProfile.getLastModDate());
                 pstmt.execute();
                 pstmt.close();
+                request.setAttribute("pid", newProfile.getID());
+                doGet(request, response);
+
             }
 
         }catch(Exception e){
 
         }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -143,6 +147,6 @@ public class ProfileServlet extends HttpServlet{
                 //die
             }
         }
-        request.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request,response);
+        request.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
     }
 }

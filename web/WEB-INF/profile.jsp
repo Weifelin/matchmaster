@@ -17,7 +17,7 @@
         <h3>Profile: ${pid}</h3>
         <form method="post" action="profile?pid=${pid}">
             <fieldset <c:if test="${!profile.getSSN().equals(user.getSsn())}">disabled</c:if>>
-                Profile ID     : <input type="text" name="pid" value="${profile.getID()}"> <br>
+                Profile ID     : <input type="text" name="newpid" value="${profile.getID()}"> <br>
                 Age            : <input type="text" name="age" value="${profile.getAge()}"> <br>
                 Age Range Lower: <input type="text" name="ageRangeStart" value="${profile.getAgeRangeStart()}"> <br>
                 Age Range Upper: <input type="text" name="ageRangeEnd" value="${profile.getAgeRangeEnd()}"> <br>
