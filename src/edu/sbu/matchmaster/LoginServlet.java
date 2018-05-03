@@ -55,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 				String name;
 				UserBean.Type type = null;
 				Connection con = ConnectionUtils.getConnection();
+				System.out.println("After getting connection");
 				String query = "SELECT * FROM Person P WHERE P.Email = ? AND P.Password = ?";
 				System.out.println(query);
 

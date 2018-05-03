@@ -11,6 +11,254 @@
 <head>
     <title>Matchmaster - Dashboard</title>
 </head>
+<style>
+
+    .dashboard-container{
+        width: 85%;
+        padding: 8% 0 0;
+        margin: auto;
+    }
+
+    .user-info-container {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 10px;
+        padding: 10px;
+        text-align: left;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .user-info-container button {
+        ont-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+    //-webkit-transition: all 0.3 ease;
+    //transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+    .user-info-container button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+    }
+
+    .accounts-container {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 100px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .account-box{
+        position: relative;
+        z-index: 2;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 10px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .account-box button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+    //-webkit-transition: all 0.3 ease;
+    //transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+    .account-box button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+    }
+
+    .profiles-container {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 100px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .profile-box{
+        position: relative;
+        z-index: 2;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 10px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .profiles-container button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+    //-webkit-transition: all 0.3 ease;
+    //transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+    .profiles-container button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+    }
+
+    /*Now start dates containers*/
+    .dates-container {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 100px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .date-box{
+        position: relative;
+        z-index: 2;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 10px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .dates-container input {
+        font-family: "Roboto", sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+
+    .dates-container button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+    //-webkit-transition: all 0.3 ease;
+    //transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+    .dates-container button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+    }
+
+    /* Suggested container*/
+
+    .suggested-container {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 90%;
+        margin: 0 auto 100px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+
+
+    .suggested-container button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+    //-webkit-transition: all 0.3 ease;
+    //transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+    .suggested-container button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+    }
+
+
+
+
+    .form input {
+        font-family: "Roboto", sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .form button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+    //-webkit-transition: all 0.3 ease;
+    //transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+    .form button:hover,.form button:active,.form button:focus {
+        background: #43A047;
+    }
+
+
+
+</style>
 <body>
     <jsp:include page="header.jsp"></jsp:include>
     <div class="dashboard-container">
@@ -49,7 +297,7 @@
                 <div class="profile-box">
                     <form class="profile" method="get" action="profile" target="_blank">
                         <%--<input type="hidden" name="thisProfile" value="${profile}">--%>
-                        <input type="hidden" name="pid" value="${profile.getID()}"
+                        <input type="hidden" name="pid" value="${profile.getID()}">
                         <ul>
                             <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
                             <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
@@ -97,10 +345,10 @@
                     <form class="profile" method="post" action="newDateServlet">
                         <input type="hidden" name="thisProfile" value="${profile}">
                         <ul>
-                            <li><c:out value="${profile.profileID}" /> <c:out value="${profile.gender}" /> </li>
-                            <li>Hair Color: <c:out value="${profile.hairColor}"/></li>
-                            <li>Height: <c:out value="${profile.height}" />  Weight: <c:out value="profile.weight"/></li>
-                            <li>Hobbies: <c:out value="${profile.hobbies}"/></li>
+                            <li><c:out value="${profile.getProfileID()}" /> <c:out value="${profile.getGender()}" /> </li>
+                            <li>Hair Color: <c:out value="${profile.getHairColor()}"/></li>
+                            <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.Weight()}"/></li>
+                            <li>Hobbies: <c:out value="${profile.getHobbies()}"/></li>
                             <li><button>Date</button></li>
                         </ul>
                     </form>
