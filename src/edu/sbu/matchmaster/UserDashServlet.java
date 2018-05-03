@@ -14,6 +14,6 @@ public class UserDashServlet extends HttpServlet{
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.getServletContext().getRequestDispatcher(request.getContextPath()+"/WEB-INF/views/dashboard.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher(request.getContextPath()+"/WEB-INF/views/dashboard.jsp").forward(request,response);
     }
 }

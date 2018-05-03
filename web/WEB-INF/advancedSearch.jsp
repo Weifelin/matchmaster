@@ -12,6 +12,7 @@
     <title>Matchmaster - Advanced Search</title>
 </head>
 <body>
+<jsp:include page="views/header.jsp"></jsp:include>
 <div class="search-container">
     <form class="searchCriteria" method="post" action="searchServlet">
         <ul>
