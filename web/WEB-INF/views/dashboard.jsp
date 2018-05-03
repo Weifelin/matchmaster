@@ -83,7 +83,7 @@
                     </form>
                 </div>
             </c:forEach>
-            <form class="pastDate"  action="pastDateServlet"><%-- pastDateServlet redirect to a new page(open new page, pastDates.jsp) that shows past dates. --%>
+            <form class="pastDate"  action="pastDateServlet" target="_blank"><%-- pastDateServlet redirect to a new page(open new page, pastDates.jsp) that shows past dates. --%>
                 <button>Check Past Date</button>
             </form>
         </div>
