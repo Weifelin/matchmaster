@@ -1,0 +1,1 @@
+SELECT E.SSN, E.StartDate, E.HourlyRate, P.FirstName, P.LastName FROM Employee E, Person P WHERE E.SSN = P.SSN AND E.Role = "CustRep";

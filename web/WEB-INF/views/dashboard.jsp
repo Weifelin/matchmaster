@@ -24,6 +24,26 @@
                 <button>Edit</button>
             </form>
         </div>
+        <br>
+        <div class="accounts-container">
+            <c:forEach var="account" items="${accountList}">
+                <div class="account-box">
+                    <form class="account" method="post" action="editAccountServlet" target="_blank">
+                        <input type="hidden" name="thisAccount" value="${account}">
+                        <ul>
+                            <li><c:out value="${account.getAcctNum()}"/></li>
+                            <li><c:out value="${account.getCardNum()}"/></li>
+                            <li><button>Edit</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </c:forEach>
+            <form class="addAccount" method="post" action="addAccountServLet" target="_blank">
+                <input type="hidden" name="ssn" value="${user.ssn}">
+                <button>Add New Account</button>
+            </form>
+        </div>
+        <br>
         <div class="profiles-container">
             <c:forEach var="profile" items="${profileList}">
                 <div class="profile-box">
@@ -65,7 +85,8 @@
                     </form>
                 </div>
             </c:forEach>
-            <form class="pastDate"  action="pastDateServlet"><%-- pastDateServlet redirect to a new page(open new page, pastDates.jsp) that shows past dates. --%>
+            <form class="pastDate"  action="pastDateServlet" target="_blank"><%-- pastDateServlet redirect to a new page(open new page, pastDates.jsp) that shows past dates. --%>
+                <input type="text" name="profileID" placeholder="Enter profile id to check past dates">
                 <button>Check Past Date</button>
             </form>
         </div>

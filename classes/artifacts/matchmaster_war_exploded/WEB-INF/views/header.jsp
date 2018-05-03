@@ -11,11 +11,12 @@
 <div class="header" style="background: #E0E0E0; height: 55px; padding: 5px;">
     <div class="SiteName" style="float: left">
         Hello ${user.getUserName()}
-        <a href="logoutProcess.jsp">Log Out</a>
+        <a href="logout">Log Out</a>
+        <a href="userdash">Dashboard</a>
     </div>
     <div class="search-container" style="float: right; padding: 10px; text-align: right;">
-       <form action="/WEB-INF/advancedSearch.jsp">
-           <input type="text" placeholder="Search.." name="search">
+       <form action="search">
+           <input type="text" placeholder="Enter ProfileID to Search..." name="profileID">
            <button type="submit"><i class="fa fa-search"></i></button>
        </form>
     </div>

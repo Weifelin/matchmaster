@@ -4,7 +4,6 @@ package edu.sbu.matchmaster;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Stack;
 
 public class ConnectionUtils{
     private static final String username = "weifeng"; //"tomcat";

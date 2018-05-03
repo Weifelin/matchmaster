@@ -15,25 +15,49 @@
     <jsp:include page="header.jsp"></jsp:include>
     <div class="dashboard-container">
         <div class="userinfo-container">
-            <h3>${user.getUserName()}</h3>
-            ${user.email} ${user.phone} <br>
-            ${user.street} ${user.city} <br>
-            ${user.state} ${user.zip}
+            <form class="user-info-container" method="post" action="editUserInfo">
+                <input type="hidden" name="thisUser" value="${user}">
+                <h3>${user.getUserName()}</h3>
+                ${user.getEmail()} ${user.getPhone()} <br>
+                ${user.getStreet()} ${user.getCity()} <br>
+                ${user.getState()} ${user.getZip()} <br>
+                <button>Edit</button>
+            </form>
         </div>
+        <br>
+        <div class="accounts-container">
+            <c:forEach var="account" items="${accountList}">
+                <div class="account-box">
+                    <form class="account" method="post" action="updateAccountServlet" target="_blank">
+                        <input type="hidden" name="thisAccount" value="${account}">
+                        <ul>
+                            <li><c:out value="${account.getAcctNum()}"/></li>
+                            <li><c:out value="${account.getCardNum()}"/></li>
+                            <li><button>Update</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </c:forEach>
+            <form class="addAccount" method="post" action="addAccountServLet" target="_blank">
+                <input type="hidden" name="ssn" value="${user.ssn}">
+                <button>Add New Account</button>
+            </form>
+        </div>
+        <br>
         <div class="profiles-container">
             <c:forEach var="profile" items="${profileList}">
                 <div class="profile-box">
-                    <form class="profile" method="post" action="editProfileServlet">
+                    <form class="profile" method="post" action="editProfileServlet" target="_blank">
                         <input type="hidden" name="thisProfile" value="${profile}">
                         <ul>
-                            <li><c:out value="${profile.profileID}" /> <c:out value="${profile.gender}" /> </li>
-                            <li>Height: <c:out value="${profile.height}" />  Weight: <c:out value="profile.weight"/></li>
+                            <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
+                            <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
                             <li><button>Edit</button></li>
                         </ul>
                     </form>
                 </div>
             </c:forEach>
-            <form class="addProfileButton" method="post" action="addProfileServlet">
+            <form class="addProfileButton" method="post" action="addProfileServlet" target="_blank">
                 <input type="hidden" name="ssn" value="${user.ssn}">
                 <button>Add New Profile</button>
             </form>
@@ -42,7 +66,7 @@
         <div class="dates-container">
             <c:forEach var="date" items="${upcomingDateList}">
                 <div class="date-box">
-                    <form class="upcoming-date" method="post" action="editDateServlet">
+                    <form class="upcoming-date" method="post" action="editDateServlet" target="_blank">
                         <input type="hidden" name="thisDate" value="${date}">
                         <ul>
                             <li><c:out value="${date.profile1.profileID}"/> with <c:out value="${date.profile2.profileID}"/></li>
@@ -81,7 +105,7 @@
             </c:forEach>
         </div>
         <br>
-        <a class="statistic" href="Statistics">Statistics</a><br>
+        <a class="statistic" href="http://andrewjaffie.me/matchmaster/stats">Statistics</a><br>
     </div>
 
 </body>

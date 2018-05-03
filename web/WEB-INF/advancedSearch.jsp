@@ -74,6 +74,7 @@
                 <option value="WY">Wyoming</option>
             </select></li>
             <button>Search</button>
+
         </ul>
     </form>
 </div>
@@ -84,10 +85,10 @@
             <form class="profile" method="post" action="newDateServlet">
                 <input type="hidden" name="thisProfile" value="${profile}">
                 <ul>
-                    <li><c:out value="${profile.profileID}" /> <c:out value="${profile.gender}" /> </li>
-                    <li>Hair Color: <c:out value="${profile.hairColor}"/></li>
-                    <li>Height: <c:out value="${profile.height}" />  Weight: <c:out value="profile.weight"/></li>
-                    <li>Hobbies: <c:out value="${profile.hobbies}"/></li>
+                    <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
+                    <li>Hair Color: <c:out value="${profile.getColor()}"/></li>
+                    <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
+                    <li>Hobbies: <c:out value="${profile.getHobbies()}"/></li>
                     <li><button>Date</button></li>
                 </ul>
             </form>
