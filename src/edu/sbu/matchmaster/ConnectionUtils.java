@@ -36,7 +36,7 @@ public class ConnectionUtils{
     public static /*synchronized*/ Connection getConnection() throws SQLException, ClassNotFoundException{
 
         Class.forName("com.mysql.jdbc.Driver");
-        String connURL = "jdbc:mysql://" + host + ":" + port + "/matchmaster";
+        String connURL = "jdbc:mysql://" + host + ":" + port + "/matchmaster?allowMultiQueries=true";
         Connection conn = DriverManager.getConnection(connURL, username, password);
         conn.setAutoCommit(false);
         return conn;

@@ -14,31 +14,26 @@ import java.util.List;
 
 @WebServlet(name = "StatsServlet", urlPatterns = {"/stats"})
 public class StatsServlet extends HttpServlet{
-    private static final String mostActiveProfilesQuery = "CREATE TEMPORARY TABLE Activity AS\n" +
-            "(SELECT Pr.OwnerSSN AS Pers, COUNT(*) AS count\n" +
-            "FROM Date D, Profile Pr\n" +
-            "  WHERE D.Profile1=Pr.ProfileID\n" +
-            "GROUP BY Pr.OwnerSSN)\n" +
+    private static final String mostActiveProfilesQuerySetup = "CREATE TEMPORARY TABLE actives AS\n" +
+            "(SELECT D.Profile1 AS Profile, COUNT(*) AS count\n" +
+            "FROM Date D\n" +
+            "GROUP BY D.Profile1)\n" +
             "UNION ALL\n" +
-            "(SELECT Pr.OwnerSSN AS Pers, COUNT(*) AS count\n" +
-            "FROM Date D, Profile Pr\n" +
-            "  WHERE D.Profile2=Pr.ProfileID\n" +
-            "GROUP BY Pr.OwnerSSN)\n" +
+            "(SELECT D.Profile2 AS Profile, COUNT(*) AS count\n" +
+            "FROM Date D\n" +
+            "GROUP BY D.Profile2)\n" +
             "UNION ALL\n" +
-            "(SELECT Pr.OwnerSSN AS Pers, COUNT(*) AS count\n" +
-            "FROM Likes L, Profile Pr\n" +
-            "  WHERE L.Liker=Pr.ProfileID\n" +
-            "GROUP BY Pr.OwnerSSN)\n" +
+            "(SELECT L.Liker AS Profile, COUNT(*) AS count\n" +
+            "FROM Likes L\n" +
+            "GROUP BY L.Liker)\n" +
             "UNION ALL\n" +
-            "(SELECT Pr.OwnerSSN AS Pers, COUNT(*) AS count\n" +
-            "FROM BlindDate R, Profile Pr\n" +
-            "  WHERE R.ProfileA=Pr.ProfileID\n" +
-            "GROUP BY Pr.OwnerSSN);\n" +
-            "\n" +
-            "SELECT A.Pers, SUM(A.count) as newcount\n" +
-            "FROM Activity A\n" +
-            "GROUP BY A.Pers\n" +
-            "ORDER BY newcount DESC\n" +
+            "(SELECT R.ProfileA AS Profile, COUNT(*) AS count\n" +
+            "FROM BlindDate R\n" +
+            "GROUP BY R.ProfileA);\n";
+    private static final String mostActiveProfilesQuery = "SELECT A.Profile, SUM(A.count)\n" +
+            "FROM actives A\n" +
+            "GROUP BY A.Profile\n" +
+            "ORDER BY SUM(A.count) DESC\n" +
             "LIMIT 5;";
     private static final String highestRatedProfilesSQL = "CREATE TEMPORARY TABLE temp3 AS\n" +
             "(SELECT D.Profile1 AS Profile, AVG(USER1Rating) AS rating\n" +
@@ -67,18 +62,20 @@ public class StatsServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try{
             Connection conn = ConnectionUtils.getConnection();
-            PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
-
+            PreparedStatement pstmtActive = conn.prepareStatement(mostActiveProfilesQuerySetup);
             pstmtActive.execute();
+            pstmtActive.close();
+            pstmtActive = conn.prepareStatement(mostActiveProfilesQuery);
+            pstmtActive.executeQuery();
             ResultSet rs = pstmtActive.getResultSet();
             List<String> active = new ArrayList<>();
             StringBuilder strDbg = new StringBuilder("Starting loop: ");
             while(rs.next()){
-                strDbg.append(rs.getString("Pers")+"; ");
-                active.add(rs.getString("Pers"));
+                strDbg.append(rs.getString("Profile")+"; ");
+                active.add(rs.getString("Profile"));
             }
             request.setAttribute("mostActiveProfiles", active);
-            request.setAttribute("strDbg", strDbg.toString());
+            //request.setAttribute("strDbg", strDbg.toString());
             rs.close();
             PreparedStatement pstmtRatedProfiles = conn.prepareStatement(highestRatedProfilesSQL);
             PreparedStatement pstmtRatedGeo = conn.prepareStatement(mostPopularGeoDateLocationsSQL);
