@@ -1,13 +1,25 @@
 package edu.sbu.matchmaster;
 
 import java.sql.Date;
+import java.util.List;
+
 public class ProfileBean {
+    private int age;
+
+    public int getAge(){
+        return age;
+    }
+
+    public List<String> getHobbies(){
+        return hobbies;
+    }
+
     public enum Gender{
-        MALE,FEMALE,OTHER
+        Male,Female,Other
     }
 
     public enum HairColor{
-        BLOND,BLACK,BROWN,RED
+        Blonde,Black,Brown,Red
     }
     private String id;
     private String ssn;
@@ -15,22 +27,25 @@ public class ProfileBean {
     private int ageRangeEnd;
     private int geoRange;
     private Gender gender;
+    private List<String> hobbies;
     private int height;
     private int weight;
     private HairColor color;
     private Date creationDate;
     private Date lastModDate;
 
-    public ProfileBean(String id, String ssn, int ageRangeStart, int ageRangeEnd, int geoRange,
-                        Gender gender, int height, int weight, HairColor color,
-                        Date creationDate, Date lastModDate){
+    public ProfileBean(String id, String ssn, int age, int ageRangeStart, int ageRangeEnd, int geoRange,
+                       Gender gender, List<String> hobbies, int height, int weight, HairColor color,
+                       Date creationDate, Date lastModDate){
 
         this.id = id;
         this.ssn = ssn;
+        this.age = age;
         this.ageRangeStart = ageRangeStart;
         this.ageRangeEnd = ageRangeEnd;
         this.geoRange = geoRange;
         this.gender = gender;
+        this.hobbies = hobbies;
         this.height = height;
         this.weight = weight;
         this.color = color;
