@@ -18,7 +18,7 @@
         <div class = "emp-box">
             <ul>
                 <li><c:out value = "${emp.getFirst()}" /> <c:out value = "${emp.getLast()}" /></li>
-                <li>Hourly Rate: $ <c:out value = "${emp.getRate()}" /></li>
+                <li>Hourly Rate: $<c:out value = "${emp.getRate()}" /></li>
                 <li>Start Date: <c:out value = "${emp.getStartDate()}" /></li>
             </ul>
 

@@ -12,17 +12,17 @@
 </head>
 <body>
     <jsp:include page="views/header.jsp"></jsp:include>
-    <div class="user-container">
-        <div class="userinfo-container">
-            <form class="user-info-container" method="post" action="editUserInfoServlet">
-                <input type="hidden" name="thisUser" value="${user}">
-                <h3>${user.getUserName()}</h3>
-                ${user.email} ${user.phone} <br>
-                ${user.street} ${user.city} <br>
-                ${user.state} ${user.zip} <br>
-                <button>Edit</button>
-            </form>
-        </div>
+    <div class="edit-account-container">
+        <form class="update-account-form" method="post" action="updateAccountServlet">
+            ${account.getAcctNum()}<br>
+            <input type="hidden" name="thisAccount" value="${account}">
+            <input type="text" name="cardNum" Placeholder="Enter new card number..">
+            <button>Submit</button>
+        </form>
+        <form class="delete-account-form" method="post" action="deleteAccountServlet">
+            <input type="hidden" name="thisAccount" value="${account}">
+            <button>Delete</button>
+        </form>
     </div>
 </body>
 </html>
