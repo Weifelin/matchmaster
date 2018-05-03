@@ -74,7 +74,8 @@
 <div class="register-page">
     <div class="form">
         <form class="register-form" action="register" method="post">
-        	<%String msg = (String)request.getAttribute("err");%>
+
+            <%String msg = (String)request.getAttribute("err");%>
         	       	
         	<% if(!msg.equals("")){ %>
         		<p style = "color:red"> <%= msg %></p>

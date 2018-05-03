@@ -32,7 +32,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//redirect to webinf login
-		getServletContext().getRequestDispatcher("/WEB-INF/login.html").forward(request,response);
+		request.setAttribute("err", "");
+		getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
 	}
 
 	/**
@@ -41,7 +42,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//Get fields from login.html
-		
+		String err = "";
+		request.setAttribute("err", err);
 		
 		try {
 
@@ -105,7 +107,11 @@ public class LoginServlet extends HttpServlet {
 					}
 				}
 				else{	//no credentials were found
-					targetURL += "/login";
+					//set string to say invalid credentials in jsp
+					System.out.println("invalid!!!!!");
+					err = "Invalid Email or Password";
+					request.setAttribute("err", err);
+					targetURL = "/login.jsp";
 				}
 				
 				UserBean user = new UserBean(ssn, type);
@@ -116,7 +122,6 @@ public class LoginServlet extends HttpServlet {
 			}
 		catch(Exception ex) {
 			System.out.println("SQL Error");
-			
 		}
 		
 		

@@ -1,12 +1,24 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Ian
+  Date: 5/2/2018
+  Time: 8:57 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>matchmaster - rigister</title>
+    <title>Matchmaster - login</title>
 </head>
+
+
+
 <style>
 
-    .register-page {
+    .login-page {
         width: 360px;
         padding: 8% 0 0;
         margin: auto;
@@ -61,32 +73,34 @@
         text-decoration: none;
     }
 
-    .form .login-form {
+    .form .register-form {
         display: none;
     }
 
 </style>
 <body>
-<div class="register-page">
+<div class="login-page">
     <div class="form">
-        <form class="login-form" action="LoginServlet" method="post">
+        <form class="login-form" action="login" method="post">
             <input type="text" name="user" placeholder="Username">
-            <input type="text" name="pwd" placeholder="Password"><br>
+            <input type="password" name="pwd" placeholder="Password"><br>
+
+            <%String msg = (String)request.getAttribute("err");%>
+
+            <% if(!msg.equals("")){ %>
+            <p style = "color:red"> <%= msg %></p>
+            <% }%>
+
             <button>Login</button>
-            <p class="message">Not Registered? <a href="#">Create an Account</a></p>
-        </form>
-        <form class="register-form" action="RegisterServlet" method="post">
-            <input type="text" name="firstname" placeholder="First Name"> <input type="text" name="lastname" placeholder="Last Name"><br>
-            <input type="text" name="email" placeholder="Email"><br>
-            <input type="text" name="pwd" placeholder="Password"><br>
-            <input type="text" name="SSN" placeholder="SSN"> <input type="text" name="phone" placeholder="Phone Number"><br>
-            <input type="text" name="street" placeholder="Street"><br>
-            <input type="text" name="city" placeholder="City"><br>
-            <input type="text" name="state" placeholder="State"> <input type="text" name="zip" placeholder="Zip Code"><br>
-            <button>create</button>
-            <p class="message">Already registered? <a href="login.html">Sign In</a></p>
+            <p class="message">Not Registered? <a href="register">Create an Account</a></p>
         </form>
     </div>
 </div>
+<!-- <script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+ <script >$('.message a').click(function(){
+     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+ });
+ //# sourceURL=pen.js
+ </script>-->
 </body>
 </html>

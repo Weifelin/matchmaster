@@ -23,16 +23,14 @@
     <title>Matchmaster Statistics</title>
 </head>
 <body>
+    <h1 align="center">General Statistics</h1>
     <div class="column">
-        <h2>Most Active Profiles</h2>
-        <table border="1" cellpadding="5" cellspacing="1">
-            <tr>
-                <th>Profile</th>
-            </tr>
+        <h2 align="center">Most Active Profiles</h2>
+            <ol>
             <c:forEach items="${mostActiveProfiles}" var="profile">
-                <tr>${profile}</tr>
+               <li><c:out value="${profile}"/></li>
             </c:forEach>
-        </table>
+            </ol>
     </div>
     <div class="column"></div>
     <div class="column"></div>
