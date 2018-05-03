@@ -329,7 +329,7 @@
                             <li>Time: <c:out value="${date.getDateTime()}"/></li>
                             <li>Location: <c:out value="${date.getLocation()}"/></li>
                             <li>Customer Representative: <c:out value="${date.getCustRep()}"/></li>
-                            <li>Comments: <c:out value="${date.getComments()}" </li>
+                            <li>Comments: <c:out value="${date.getComments()}"/> </li>
                             <li><input type="text" name="comment" placeholder="Comment Here.."></li>
                             <li><button>Add Comment</button></li>
                         </ul>
