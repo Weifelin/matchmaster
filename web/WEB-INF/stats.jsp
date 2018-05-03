@@ -22,8 +22,13 @@
 <head>
     <title>Matchmaster Statistics</title>
 </head>
+<style>
+    .column {
+        font-family: sans-serif;
+    }
+</style>
 <body>
-    <h1 align="center">General Statistics</h1>
+    <h1 align="center" style="font-family:sans-serif">General Statistics</h1>
     <c:out value="${strDbg}"/>
     <div class="column">
         <h2 align="center">Most Active Profiles</h2>
