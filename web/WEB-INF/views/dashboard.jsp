@@ -27,8 +27,9 @@
         <div class="profiles-container">
             <c:forEach var="profile" items="${profileList}">
                 <div class="profile-box">
-                    <form class="profile" method="post" action="editProfileServlet" target="_blank">
-                        <input type="hidden" name="thisProfile" value="${profile}">
+                    <form class="profile" method="get" action="profile" target="_blank">
+                        <%--<input type="hidden" name="thisProfile" value="${profile}">--%>
+                        <input type="hidden" name="pid" value="${profile.getID()}"
                         <ul>
                             <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
                             <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
@@ -37,8 +38,9 @@
                     </form>
                 </div>
             </c:forEach>
-            <form class="addProfileButton" method="post" action="addProfileServlet" target="_blank">
-                <input type="hidden" name="ssn" value="${user.ssn}">
+            <form class="addProfileButton" method="get" action="profile" target="_blank">
+                <%--<input type="hidden" name="ssn" value="${user.ssn}">--%>
+                <input type="hidden" name="pid" value="">
                 <button>Add New Profile</button>
             </form>
         </div>

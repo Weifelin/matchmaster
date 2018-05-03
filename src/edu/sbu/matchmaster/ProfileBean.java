@@ -61,7 +61,7 @@ public class ProfileBean {
     public Gender getGender(){ return this.gender;}
     public int getHeight(){ return this.height;}
     public int getWeight() { return this.weight;}
-    public HairColor getColor(){ return this.color;}
+    public HairColor getHairColor(){ return this.color;}
     public Date getCreationDate(){ return this.creationDate;}
     public Date getLastModDate() { return this.lastModDate;}
 }
