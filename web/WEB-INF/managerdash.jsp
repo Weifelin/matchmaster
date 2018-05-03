@@ -16,7 +16,7 @@
 </head>
 <body>
     <div>
-        <form action = "manageemployees" method = post>
+        <form action = "manageemployees" method = get>
             <button>Manage Employees</button>
         </form>
     </div>

@@ -16,8 +16,10 @@
     <h2>Employees:</h2>
     <c:forEach var = "emp" items ="${emplist}">
         <div class = "emp-box">
-            <<ul>
+            <ul>
                 <li><c:out value = "${emp.getFirst()}" /> <c:out value = "${emp.getLast()}" /></li>
+                <li>Hourly Rate: $ <c:out value = "${emp.getRate()}" /></li>
+                <li>Start Date: <c:out value = "${emp.getStartDate()}" /></li>
             </ul>
 
         </div>
