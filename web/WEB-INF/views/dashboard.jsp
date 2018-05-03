@@ -28,12 +28,12 @@
         <div class="accounts-container">
             <c:forEach var="account" items="${accountList}">
                 <div class="account-box">
-                    <form class="account" method="post" action="updateAccountServlet" target="_blank">
+                    <form class="account" method="post" action="editAccountServlet" target="_blank">
                         <input type="hidden" name="thisAccount" value="${account}">
                         <ul>
                             <li><c:out value="${account.getAcctNum()}"/></li>
                             <li><c:out value="${account.getCardNum()}"/></li>
-                            <li><button>Update</button></li>
+                            <li><button>Edit</button></li>
                         </ul>
                     </form>
                 </div>
