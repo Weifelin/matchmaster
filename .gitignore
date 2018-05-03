@@ -5,3 +5,4 @@ out/artifacts/match_master_war_exploded/
 *.bak
 .gitignore
 out/
+web/WEB-INF/classes/

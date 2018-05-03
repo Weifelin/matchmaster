@@ -311,6 +311,11 @@
                             <button>Edit</button>
 
                     </form>
+                    <form class="profile" method="post" action="profile">
+                        <input type="hidden" name="pid" value="${profile.getID()}">
+                        <input type="hidden" name="delete" value="${true}">
+                        <button>Delete ${profile.getID()} (Caution!)</button>
+                    </form>
                 </div>
             </c:forEach>
             <form class="addProfileButton" method="get" action="profile" target="_blank">
@@ -323,19 +328,24 @@
         <div class="dates-container">
             <c:forEach var="date" items="${upcomingDateList}">
                 <div class="date-box">
-                    <form class="upcoming-date" method="post" action="editDateServlet" target="_blank">
+                    <form class="upcoming-date" method="post" action="modDate" target="_blank">
                         <input type="hidden" name="thisDate" value="${date}">
 
-                            <c:out value="${date.profile1.profileID}"/> with <c:out value="${date.profile2.profileID}"/>
-                            Time: <c:out value="${date.time}"/>
-                            Location: <c:out value="${date.location}"/>
-                            Customer Representative: <c:out value="${date.custRep}"/>
-                            <input type="text" name="comment" placeholder="Comment Here..">
-                            <button>Add Comment</button>
+                        <input type="hidden" name="verb" value="addComment">
+                        <ul>
+                            <li><c:out value="${date.getProfile1.getID()}"/> with <c:out value="${date.getProfile2.getID()}"/></li>
+                            <li>Time: <c:out value="${date.getDateTime()}"/></li>
+                            <li>Location: <c:out value="${date.getLocation()}"/></li>
+                            <li>Customer Representative: <c:out value="${date.getCustRep()}"/></li>
+                            <li>Comments: <c:out value="${date.getComments()}"/> </li>
+                            <li><input type="text" name="comment" placeholder="Comment Here.."></li>
+                            <li><button>Add Comment</button></li>
+                        </ul>
 
                     </form>
                     <form class="delete-date" method="post" action="deleteDateServlet">
                         <input type="hidden" name="thisDate" value="${date}">
+                        <input type="hidden" name="verb" value="delete">
                         <button>Delete Date</button>
                     </form>
                 </div>
@@ -349,7 +359,7 @@
         <div class="suggested-container">
             <c:forEach var="profile" items="${suggestedProfileList}">
                 <div class="profile-box">
-                    <form class="profile" method="post" action="newDateServlet">
+                    <form class="profile" method="get" action="newDateServlet">
                         <input type="hidden" name="thisProfile" value="${profile}">
 
                             <c:out value="${profile.getProfileID()}" /> <c:out value="${profile.getGender()}" />
