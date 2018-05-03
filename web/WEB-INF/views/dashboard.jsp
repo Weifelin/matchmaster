@@ -15,7 +15,7 @@
     <jsp:include page="header.jsp"></jsp:include>
     <div class="dashboard-container">
         <div class="userinfo-container">
-            <form class="user-info-container" method="post" action="editUserInfoServlet">
+            <form class="user-info-container" method="post" action="editUserInfo">
                 <input type="hidden" name="thisUser" value="${user}">
                 <h3>${user.getUserName()}</h3>
                 ${user.email} ${user.phone} <br>
@@ -85,7 +85,7 @@
             </c:forEach>
         </div>
         <br>
-        <a class="statistic" href="Statistics">Statistics</a><br>
+        <a class="statistic" href="http://andrewjaffie.me/matchmaster/stats">Statistics</a><br>
     </div>
 
 </body>

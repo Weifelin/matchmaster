@@ -52,9 +52,7 @@ public class LoginServlet extends HttpServlet {
 				String email = request.getParameter("user");
 				String pwd = request.getParameter("pwd");
 				int ssn = 0;
-				String targetURL = "";
 				UserBean.Type type = null;
-				//ConnectionUtils cu = ConnectionUtils.getInstance();
 				Connection con = ConnectionUtils.getConnection();
 
 				String query = "SELECT SSN FROM Person P WHERE P.Email = ? AND P.Password = ?";
@@ -83,10 +81,12 @@ public class LoginServlet extends HttpServlet {
 					ResultSet res2 = ps.executeQuery();
 					if(res2.next()) {	//Person is a User
 						type = UserBean.Type.CUST;
-						targetURL += "/user/dash";
+						UserBean user = new UserBean(ssn, type);
+						session.setAttribute("user",user);
+						response.sendRedirect("/user/dash");
 					}
 					else {
-						//get the roll of this employee
+						//get the role of this employee
 						String query3 = "SELECT Role FROM Employee E WHERE E.SSN = ?";
 						PreparedStatement ps3 = con.prepareStatement(query3);
 						ps3.setInt(1, ssn);
@@ -97,11 +97,15 @@ public class LoginServlet extends HttpServlet {
 							
 							if(res3.getString("Role").equals("EMP")){
 								type = UserBean.Type.EMP;
-								targetURL += "/emp/dash";
+								UserBean user = new UserBean(ssn, type);
+								session.setAttribute("user",user);
+								response.sendRedirect(request.getContextPath()+"/emp/dash");
 							}
 							else{
 								type = UserBean.Type.MNG;
-								targetURL += "/manage/dash";
+								UserBean user = new UserBean(ssn, type);
+								session.setAttribute("user",user);
+								response.sendRedirect(request.getContextPath()+"/manage/dash");
 							}
 						}
 					}
@@ -111,14 +115,8 @@ public class LoginServlet extends HttpServlet {
 					System.out.println("invalid!!!!!");
 					err = "Invalid Email or Password";
 					request.setAttribute("err", err);
-					targetURL = "/login.jsp";
+					request.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp");
 				}
-				
-				UserBean user = new UserBean(ssn, type);
-				if(type!= null)
-					session.setAttribute("user",user);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF" + targetURL);
-				rd.forward(request,response);
 			}
 		catch(Exception ex) {
 			System.out.println("SQL Error");

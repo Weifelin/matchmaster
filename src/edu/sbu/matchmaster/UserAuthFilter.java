@@ -13,9 +13,9 @@ public class UserAuthFilter implements Filter{
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException{
         HttpServletRequest request = (HttpServletRequest) req;
-        UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+        UserBean userBean = (UserBean) request.getSession().getAttribute("user");
         if(userBean == null){
-            ((HttpServletResponse)resp).sendRedirect(request.getContextPath()+"/login");
+            ((HttpServletResponse)resp).sendRedirect("http://andrewjaffie.me/matchmaster/login");
         }else{
             switch(userBean.getType()){
 
