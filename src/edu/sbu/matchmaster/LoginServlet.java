@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 				
 				String email = request.getParameter("user");
 				String pwd = request.getParameter("pwd");
-				int ssn = 0;
+				String ssn = "";
 				String targetURL = "";
 				UserBean.Type type = null;
 				//ConnectionUtils cu = ConnectionUtils.getInstance();
@@ -76,10 +76,10 @@ public class LoginServlet extends HttpServlet {
 
 				if(res.next()) {	//ssn was found, search in User
 
-					ssn = res.getInt("SSN");
+					ssn = res.getString("SSN");
 					String query2 = "SELECT * FROM User U WHERE U.SSN = ?";
 					PreparedStatement ps = con.prepareStatement(query2);
-					ps.setInt(1, ssn);
+					ps.setString(1, ssn);
 					ResultSet res2 = ps.executeQuery();
 					if(res2.next()) {	//Person is a User
 						type = UserBean.Type.CUST;
@@ -89,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 						//get the roll of this employee
 						String query3 = "SELECT Role FROM Employee E WHERE E.SSN = ?";
 						PreparedStatement ps3 = con.prepareStatement(query3);
-						ps3.setInt(1, ssn);
+						ps3.setString(1, ssn);
 						ResultSet res3 = ps3.executeQuery();
 						
 						if(res3.next()){
