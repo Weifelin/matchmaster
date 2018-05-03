@@ -14,21 +14,23 @@
 <style>
 
     .dashboard-container{
-        width: 85%;
+        font-family: "Roboto", sans-serif;
+        width: 90%;
         padding: 8% 0 0;
         margin: auto;
     }
 
     .user-info-container {
-        position: absolute;
-        left: 10px;
+        position: relative;
         top: 10px;
+        left:10px;
         z-index: 1;
         background: #FFFFFF;
-        max-width: 90%;
-        margin: 0 auto 10px;
-        padding: 10px;
-        text-align: left;
+        width: 40%;
+        margin: 0 auto 15px;
+        padding: 15px;
+        text-align: center;
+        font-size: 14px;
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
 
@@ -37,11 +39,10 @@
         text-transform: uppercase;
         outline: 0;
         background: #4CAF50;
-        width: 100%;
         border: 0;
         padding: 15px;
         color: #FFFFFF;
-        font-size: 14px;
+        font-size: 12px;
     //-webkit-transition: all 0.3 ease;
     //transition: all 0.3 ease;
         cursor: pointer;
@@ -73,7 +74,7 @@
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
 
-    .account-box button {
+    .accounts-container button {
         font-family: "Roboto", sans-serif;
         text-transform: uppercase;
         outline: 0;
@@ -107,10 +108,12 @@
         position: relative;
         z-index: 2;
         background: #FFFFFF;
-        max-width: 90%;
-        margin: 0 auto 10px;
+        max-width: 200px;
+
         padding: 15px;
         text-align: center;
+        float: left;
+        margin-right: 15px;
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
 
@@ -124,9 +127,11 @@
         padding: 15px;
         color: #FFFFFF;
         font-size: 14px;
+        margin-top: 10px;
     //-webkit-transition: all 0.3 ease;
     //transition: all 0.3 ease;
         cursor: pointer;
+
     }
 
     .profiles-container button:hover,.form button:active,.form button:focus {
@@ -149,7 +154,7 @@
         position: relative;
         z-index: 2;
         background: #FFFFFF;
-        max-width: 90%;
+        max-width: 200px;
         margin: 0 auto 10px;
         padding: 15px;
         text-align: center;
@@ -266,8 +271,10 @@
             <form class="user-info-container" method="post" action="editUserInfo">
                 <input type="hidden" name="thisUser" value="${user}">
                 <h3>${user.getUserName()}</h3>
-                ${user.getEmail()} ${user.getPhone()} <br>
-                ${user.getStreet()} ${user.getCity()} <br>
+                ${user.getEmail()} <br>
+                Phone: ${user.getPhone()} <br>
+                ${user.getStreet()}
+                <br> ${user.getCity()},
                 ${user.getState()} ${user.getZip()} <br>
                 <button>Edit</button>
             </form>
@@ -278,11 +285,11 @@
                 <div class="account-box">
                     <form class="account" method="post" action="editAccountServlet" target="_blank">
                         <input type="hidden" name="thisAccount" value="${account}">
-                        <ul>
-                            <li><c:out value="${account.getAcctNum()}"/></li>
-                            <li><c:out value="${account.getCardNum()}"/></li>
-                            <li><button>Edit</button></li>
-                        </ul>
+
+                            <c:out value="${account.getAcctNum()}"/>
+                            <c:out value="${account.getCardNum()}"/>
+                            <button>Edit</button>
+
                     </form>
                 </div>
             </c:forEach>
@@ -292,17 +299,17 @@
             </form>
         </div>
         <br>
-        <div class="profiles-container">
+        <section class="profiles-container">
             <c:forEach var="profile" items="${profileList}">
                 <div class="profile-box">
                     <form class="profile" method="get" action="profile" target="_blank">
                         <%--<input type="hidden" name="thisProfile" value="${profile}">--%>
                         <input type="hidden" name="pid" value="${profile.getID()}">
-                        <ul>
-                            <li><c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" /> </li>
-                            <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/></li>
-                            <li><button>Edit</button></li>
-                        </ul>
+
+                            <c:out value="${profile.getID()}" /> <c:out value="${profile.getGender()}" />
+                            Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.getWeight()}"/>
+                            <button>Edit</button>
+
                     </form>
                 </div>
             </c:forEach>
@@ -311,21 +318,21 @@
                 <input type="hidden" name="pid" value="">
                 <button>Add New Profile</button>
             </form>
-        </div>
+        </section>
         <br>
         <div class="dates-container">
             <c:forEach var="date" items="${upcomingDateList}">
                 <div class="date-box">
                     <form class="upcoming-date" method="post" action="editDateServlet" target="_blank">
                         <input type="hidden" name="thisDate" value="${date}">
-                        <ul>
-                            <li><c:out value="${date.profile1.profileID}"/> with <c:out value="${date.profile2.profileID}"/></li>
-                            <li>Time: <c:out value="${date.time}"/></li>
-                            <li>Location: <c:out value="${date.location}"/></li>
-                            <li>Customer Representative: <c:out value="${date.custRep}"/></li>
-                            <li><input type="text" name="comment" placeholder="Comment Here.."></li>
-                            <li><button>Add Comment</button></li>
-                        </ul>
+
+                            <c:out value="${date.profile1.profileID}"/> with <c:out value="${date.profile2.profileID}"/>
+                            Time: <c:out value="${date.time}"/>
+                            Location: <c:out value="${date.location}"/>
+                            Customer Representative: <c:out value="${date.custRep}"/>
+                            <input type="text" name="comment" placeholder="Comment Here..">
+                            <button>Add Comment</button>
+
                     </form>
                     <form class="delete-date" method="post" action="deleteDateServlet">
                         <input type="hidden" name="thisDate" value="${date}">
@@ -344,13 +351,13 @@
                 <div class="profile-box">
                     <form class="profile" method="post" action="newDateServlet">
                         <input type="hidden" name="thisProfile" value="${profile}">
-                        <ul>
-                            <li><c:out value="${profile.getProfileID()}" /> <c:out value="${profile.getGender()}" /> </li>
-                            <li>Hair Color: <c:out value="${profile.getHairColor()}"/></li>
-                            <li>Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.Weight()}"/></li>
-                            <li>Hobbies: <c:out value="${profile.getHobbies()}"/></li>
-                            <li><button>Date</button></li>
-                        </ul>
+
+                            <c:out value="${profile.getProfileID()}" /> <c:out value="${profile.getGender()}" />
+                            Hair Color: <c:out value="${profile.getHairColor()}"/>
+                            Height: <c:out value="${profile.getHeight()}" />  Weight: <c:out value="${profile.Weight()}"/>
+                            Hobbies: <c:out value="${profile.getHobbies()}"/>
+                            <button>Date</button>
+
                     </form>
                 </div>
             </c:forEach>
