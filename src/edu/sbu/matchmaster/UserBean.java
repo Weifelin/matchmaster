@@ -9,7 +9,7 @@ public class UserBean{
 
 
 
-    private int ssn;
+    private String ssn;
     private Type type;
     private String userName;
     private String gender;
@@ -21,12 +21,12 @@ public class UserBean{
     private String state;
     private int zip;
 
-    public UserBean(int ssn, Type type){
+    public UserBean(String ssn, Type type){
         this.ssn = ssn;
         this.type = type;
     }
 
-    public int getSsn(){
+    public String getSsn(){
         return ssn;
     }
 
