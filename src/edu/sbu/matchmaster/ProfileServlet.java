@@ -31,6 +31,12 @@ public class ProfileServlet extends HttpServlet{
                 Date.valueOf((request.getParameter("creationDate"))),
                 new Date(System.currentTimeMillis())
         );
+        if(newProfile.getID().equals("")){
+            request.setAttribute("err", "Invalid Profile ID!");
+            request.setAttribute("profile", newProfile);
+            request.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp");
+            return;
+        }
         try{
             Connection conn = ConnectionUtils.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(
@@ -99,7 +105,7 @@ public class ProfileServlet extends HttpServlet{
         }
         String ssn = ((UserBean) request.getSession().getAttribute("user")).getSsn();
         if(pid == null || pid == ""){
-            ProfileBean newProfile = new ProfileBean("New Profile",
+            ProfileBean newProfile = new ProfileBean("",
                     ssn,
                     17,
                     17,

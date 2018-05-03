@@ -37,6 +37,7 @@
                                     <option value="Red" ${profile.getHairColor().toString().equals("Red") ? 'selected' : ''}>Red</option>
                                  </select>
                 <input type="hidden" name="creationDate" value="${profile.getCreationDate().toString()}">
+                <c:out value="${err}"/>
                 ${profile.getSSN().equals(user.getSsn()) ? "<button>Submit</button>" : ""}
 
             </fieldset>
