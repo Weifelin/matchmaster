@@ -17,6 +17,20 @@ import java.util.List;
 @WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
 public class ProfileServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response){
+        String delete = request.getParameter("delete");
+        if(delete!=null && delete.equals("true")){
+            try{
+                Connection conn = ConnectionUtils.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement("delete from Profile where ProfileID=?");
+                pstmt.setString(1, request.getParameter("pid"));
+                pstmt.execute();
+                pstmt.close();
+                conn.close();
+                response.sendRedirect(getServletContext().getContextPath()+"/userdash");
+                return;
+            }catch(Exception e){
+            }
+        }
         ProfileBean newProfile = new ProfileBean(request.getParameter("newpid"),
                 ((UserBean) request.getSession().getAttribute("user")).getSsn(),
                 Integer.parseInt(request.getParameter("age")),
@@ -31,71 +45,71 @@ public class ProfileServlet extends HttpServlet{
                 Date.valueOf((request.getParameter("creationDate"))),
                 new Date(System.currentTimeMillis())
         );
+
         if(newProfile.getID().equals("")){
             request.setAttribute("err", "Invalid Profile ID!");
             request.setAttribute("profile", newProfile);
             request.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp");
-            return;
-        }
-        try{
-            Connection conn = ConnectionUtils.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(
-                    "select OwnerSSN from Profile P where P.ProfileID=?");
-            pstmt.setString(1, newProfile.getID());
-            ResultSet rs = pstmt.executeQuery();
-
-            if(rs.next()){
-                if(rs.getString(1).equals(newProfile.getSSN())){
-                    pstmt = conn.prepareStatement(
-                            "update Profile set Age=?, DatingAgeRangeStart=?, DatingAgeRangeEnd=?, DatingGeoRange=?, M_F=?, Hobbies=?, Height=?, Weight=?, HairColor=?, LastModDate=? where ProfileID=?");
-                    // pstmt.setString(1, newProfile.getID());
-                    pstmt.setInt(1, newProfile.getAge());
-                    pstmt.setInt(2, newProfile.getAgeRangeStart());
-                    pstmt.setInt(3, newProfile.getAgeRangeEnd());
-                    pstmt.setInt(4, newProfile.getGeoRange());
-                    pstmt.setString(5, newProfile.getGender().toString());
-                    pstmt.setString(6, String.join(", ", newProfile.getHobbies()));
-                    pstmt.setDouble(7, newProfile.getHeight());
-                    pstmt.setDouble(8, newProfile.getWeight());
-                    pstmt.setString(9, newProfile.getHairColor().toString());
-                    pstmt.setDate(10, newProfile.getLastModDate());
-                    pstmt.setString(11, newProfile.getID());
-                    pstmt.executeUpdate();
-                    conn.commit();
-                    pstmt.close();
-                }else{
-                    newProfile.setID("Invalid Profile ID--Please Change");
-                    request.setAttribute("profile", newProfile);
-                    request.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
-                }
-            }else{
-                pstmt = conn.prepareStatement(
-                        "insert into Profile VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
-                );
+        }else{
+            try{
+                Connection conn = ConnectionUtils.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(
+                        "select OwnerSSN from Profile P where P.ProfileID=?");
                 pstmt.setString(1, newProfile.getID());
-                pstmt.setString(2, newProfile.getSSN());
-                pstmt.setInt(3, newProfile.getAge());
-                pstmt.setInt(4, newProfile.getAgeRangeStart());
-                pstmt.setInt(5, newProfile.getAgeRangeEnd());
-                pstmt.setInt(6, newProfile.getGeoRange());
-                pstmt.setString(7, newProfile.getGender().toString());
-                pstmt.setString(8, String.join(", ", newProfile.getHobbies()));
-                pstmt.setDouble(9, newProfile.getHeight());
-                pstmt.setDouble(10, newProfile.getWeight());
-                pstmt.setString(11, newProfile.getHairColor().toString());
-                pstmt.setDate(12, newProfile.getCreationDate());
-                pstmt.setDate(13, newProfile.getLastModDate());
-                pstmt.execute();
-                pstmt.close();
-                request.setAttribute("pid", newProfile.getID());
-                doGet(request, response);
+                ResultSet rs = pstmt.executeQuery();
+
+                if(rs.next()){
+                    if(rs.getString(1).equals(newProfile.getSSN())){
+                        pstmt = conn.prepareStatement(
+                                "update Profile set Age=?, DatingAgeRangeStart=?, DatingAgeRangeEnd=?, DatingGeoRange=?, M_F=?, Hobbies=?, Height=?, Weight=?, HairColor=?, LastModDate=? where ProfileID=?");
+                        // pstmt.setString(1, newProfile.getID());
+                        pstmt.setInt(1, newProfile.getAge());
+                        pstmt.setInt(2, newProfile.getAgeRangeStart());
+                        pstmt.setInt(3, newProfile.getAgeRangeEnd());
+                        pstmt.setInt(4, newProfile.getGeoRange());
+                        pstmt.setString(5, newProfile.getGender().toString());
+                        pstmt.setString(6, String.join(", ", newProfile.getHobbies()));
+                        pstmt.setDouble(7, newProfile.getHeight());
+                        pstmt.setDouble(8, newProfile.getWeight());
+                        pstmt.setString(9, newProfile.getHairColor().toString());
+                        pstmt.setDate(10, newProfile.getLastModDate());
+                        pstmt.setString(11, newProfile.getID());
+                        pstmt.executeUpdate();
+                        conn.commit();
+                        pstmt.close();
+                    }else{
+                        newProfile.setID("Invalid Profile ID--Please Change");
+                        request.setAttribute("profile", newProfile);
+                        request.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+                    }
+                }else{
+                    pstmt = conn.prepareStatement(
+                            "insert into Profile VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                    );
+                    pstmt.setString(1, newProfile.getID());
+                    pstmt.setString(2, newProfile.getSSN());
+                    pstmt.setInt(3, newProfile.getAge());
+                    pstmt.setInt(4, newProfile.getAgeRangeStart());
+                    pstmt.setInt(5, newProfile.getAgeRangeEnd());
+                    pstmt.setInt(6, newProfile.getGeoRange());
+                    pstmt.setString(7, newProfile.getGender().toString());
+                    pstmt.setString(8, String.join(", ", newProfile.getHobbies()));
+                    pstmt.setDouble(9, newProfile.getHeight());
+                    pstmt.setDouble(10, newProfile.getWeight());
+                    pstmt.setString(11, newProfile.getHairColor().toString());
+                    pstmt.setDate(12, newProfile.getCreationDate());
+                    pstmt.setDate(13, newProfile.getLastModDate());
+                    pstmt.execute();
+                    pstmt.close();
+                    request.setAttribute("pid", newProfile.getID());
+                    doGet(request, response);
+
+                }
+
+            }catch(Exception e){
 
             }
-
-        }catch(Exception e){
-
         }
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
