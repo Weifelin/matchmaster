@@ -22,19 +22,38 @@
 <head>
     <title>Matchmaster Statistics</title>
 </head>
+<style>
+    .column {
+        font-family: sans-serif;
+    }
+</style>
 <body>
+    <h1 align="center" style="font-family:sans-serif">General Statistics</h1>
+    <c:out value="${strDbg}"/>
     <div class="column">
-        <h2>Most Active Profiles</h2>
-        <table border="1" cellpadding="5" cellspacing="1">
-            <tr>
-                <th>Profile</th>
-            </tr>
+        <h2 align="center">Most Active Profiles</h2>
+            <ol>
             <c:forEach items="${mostActiveProfiles}" var="profile">
-                <tr>${profile}</tr>
+               <li><c:out value="${profile}"/></li>
             </c:forEach>
-        </table>
+            </ol>
     </div>
-    <div class="column"></div>
-    <div class="column"></div>
+    <div class="column">
+        <h2 align="center">Highest Rated Profiles</h2>
+        <ol>
+            <c:forEach items="${highestRatedProfiles}" var="profile">
+                <li><c:out value="${profile}"/></li>
+            </c:forEach>
+        </ol>
+    </div>
+    <div class="column">
+        <h2 align="center">Most Popular Geo-Locations</h2>
+        <ol>
+            <c:forEach items="${mostPopularGeo}" var="loc">
+                <li><c:out value="${loc}"/></li>
+            </c:forEach>
+        </ol>
+    </div>
+
 </body>
 </html>
