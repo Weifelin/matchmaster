@@ -1,5 +1,6 @@
 # matchmaster
-It's a teamwork project that hasn't finished yet. ALl transactions/queries in database level have been finished. Some front end and JSP work still need to be done
+It's a teamwork project that hasn't finished yet. ALl transactions/queries in database level have been finished. 
+Some front end and JSP work are still in progress by me.
 
 ****Project Specification****\
 The basic idea behind your on-line dating system is that it will allow customers to use the web to browse/search the contents of your database (at least
